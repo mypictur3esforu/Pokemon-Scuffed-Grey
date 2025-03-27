@@ -1,2 +1,2 @@
 # PokeSQL
-Datenbank Projekt für Q2
+Datenbank Projekt für das Halbjahr Q2
