@@ -1,2 +1,2 @@
-**PokeSQL**
+# A PokeSQL
 Datenbank Projekt für Q2
