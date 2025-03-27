@@ -5,5 +5,23 @@ body{
 }
 
 h1{
-    color: black;
+    color: rgb(0, 0, 0);
+    background-color: aliceblue;
+}
+
+h2{
+    color: beige;
+}
+.diverse{
+    text-align: center;
+    background-color: black;
+}
+
+button{
+    height: 5cm;
+    width: 40cm;
+}
+
+button:hover{
+    background-color: blueviolet;
 }
