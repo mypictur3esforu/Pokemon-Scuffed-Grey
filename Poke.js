@@ -12,4 +12,8 @@ async function executeSQL(sql) {
   return rows
 }
 
+function userSQL(sql){
+  document.getElementById("ans").innerHTML = "Neeo"
+}
+
 console.log(executeSQL("select * from Pokemon"))
