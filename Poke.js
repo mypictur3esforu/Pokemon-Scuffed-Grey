@@ -1,19 +1,39 @@
-var mysql = require('mysql2');
+const mysql = require('mysql2')
 
-var mysql = mysql.createConnection({
+const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "2007",
   database: "myDB"
-}).promise()
+})
 
-async function executeSQL(sql) {
-  const [rows] = await mysql.query(sql)
+function executeSQL(sql) {
+    const rows = db.query(sql)[0]
+  //const rows = "ewtfgv"
   return rows
 }
 
-function userSQL(sql){
-  document.getElementById("ans").innerHTML = "Neeo"
+// function userSQL(sql){
+//   sql = "Select * from Pokemon"
+//   console.log(executeSQL(sql))
+//   document.getElementById("ans").innerHTML = executeSQL(sql)
+// }
+
+// //console.log(executeSQL("select * from Pokemon"))
+
+
+var query = "SELECT * FROM table;";
+
+async function getResult() {
+    // Use 'await' to wait for the query to complete
+    const [rows, fields] = await database.promise().query(query);
+    return rows;  // Return the result
 }
 
-console.log(executeSQL("select * from Pokemon"))
+async function main() {
+  // Use 'await' when calling the function to get the actual result
+  var result = await getResult();
+  console.log(result);  // Log the result
+}
+main()
+
