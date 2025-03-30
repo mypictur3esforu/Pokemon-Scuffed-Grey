@@ -18,10 +18,10 @@ h2{
 }
 
 button{
-    height: 5cm;
-    width: 40cm;
+    height: 20%;
+    width: 90%;
 }
 
 button:hover{
-    background-color: blueviolet;
+    background-color: rgb(216, 216, 216);
 }
