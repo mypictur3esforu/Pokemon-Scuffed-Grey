@@ -2,7 +2,7 @@
   "name": "pokesql",
   "version": "1.0.0",
   "description": "Datenbank Projekt für das Halbjahr Q2",
-  "type" : "module",
+  "type": "module",
   "main": "Poke.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/mypictur3esforu/Pokesql/issues"
   },
-  "homepage": "https://github.com/mypictur3esforu/Pokesql#readme"
+  "homepage": "https://github.com/mypictur3esforu/Pokesql#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  }
 }
