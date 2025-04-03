@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 var query = "SELECT * FROM Pokemon;";
+var query2 = "SELECT * FROM notes;";
 
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST,
@@ -13,7 +14,7 @@ const pool = mysql.createPool({
 }).promise()
 
 
-  var result = await pool.query("SELECT * FROM notes;")
+  var result = await pool.query(query)
   const row = result[0][0]
   console.log(result)
   console.log(row)
