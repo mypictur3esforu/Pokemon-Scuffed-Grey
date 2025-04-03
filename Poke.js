@@ -1,15 +1,19 @@
-var mysql = require('mysql2');
+import mysql from 'mysql2'
 
-var mysql = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "2007",
-  database: "myDB"
+import dotenv from 'dotenv'
+dotenv.config()
+
+var query = "SELECT * FROM Pokemon;";
+var query2 = "SELECT * FROM notes;";
+
+const pool = mysql.createPool({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
 }).promise()
 
-async function executeSQL(sql) {
-  const [rows] = await mysql.query(sql)
-  return rows
-}
-
-console.log(executeSQL("select * from Pokemon;"))
+  var result = await pool.query(query)
+  const row = result[0][0]
+  console.log(result)
+  console.log(row)
