@@ -12,4 +12,4 @@ async function executeSQL(sql) {
   return rows
 }
 
-console.log(executeSQL("select * from Pokemon"))
+console.log(executeSQL("select * from Pokemon;"))
