@@ -1,39 +1,16 @@
-const mysql = require('mysql2')
+import mysql from 'mysql2'
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "2007",
-  database: "myDB"
-})
+var query = "SELECT * FROM Pokemon;";
 
-function executeSQL(sql) {
-    const rows = db.query(sql)[0]
-  //const rows = "ewtfgv"
-  return rows
-}
-
-// function userSQL(sql){
-//   sql = "Select * from Pokemon"
-//   console.log(executeSQL(sql))
-//   document.getElementById("ans").innerHTML = executeSQL(sql)
-// }
-
-// //console.log(executeSQL("select * from Pokemon"))
+const pool = mysql.createPool({
+  host: '127.0.0.1',
+  user: 'root',
+  password: '2007',
+  database: 'notes_app',
+}).promise()
 
 
-var query = "SELECT * FROM table;";
-
-async function getResult() {
-    // Use 'await' to wait for the query to complete
-    const [rows, fields] = await database.promise().query(query);
-    return rows;  // Return the result
-}
-
-async function main() {
-  // Use 'await' when calling the function to get the actual result
-  var result = await getResult();
-  console.log(result);  // Log the result
-}
-main()
-
+  var result = await pool.query("SELECT * FROM notes;")
+  const row = result[0][0]
+  console.log(result)
+  console.log(row)
