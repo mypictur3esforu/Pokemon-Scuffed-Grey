@@ -13,7 +13,6 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE,
 }).promise()
 
-
   var result = await pool.query(query)
   const row = result[0][0]
   console.log(result)
