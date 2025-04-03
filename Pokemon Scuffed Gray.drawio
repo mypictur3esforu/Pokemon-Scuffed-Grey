@@ -246,8 +246,8 @@
             <mxPoint x="-1" y="18" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="EIcoKnqhOw7Y9KkXc619-10" value="posses" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="330" y="123" width="50" height="50" as="geometry" />
+        <mxCell id="EIcoKnqhOw7Y9KkXc619-10" value="possess" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="330" y="123" width="60" height="50" as="geometry" />
         </mxCell>
         <mxCell id="EIcoKnqhOw7Y9KkXc619-14" value="" style="endArrow=none;html=1;rounded=0;elbow=vertical;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
