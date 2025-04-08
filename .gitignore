@@ -1,7 +1,8 @@
 *.env
-Data/
 *.json
 *.bkp
+node_modules/
+Data/Data Generator/
 
 ### IntelliJ IDEA ###
 out/
