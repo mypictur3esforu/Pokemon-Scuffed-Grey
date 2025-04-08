@@ -3,14 +3,15 @@ create database if not exists PokemonScuffedGrey;
 use PokemonScuffedGrey;
 
 create table if not exists Pokemon_Blueprint (
-ID integer primary key auto_increment,
-name varchar(50), level integer, hp integer, attack integer, defence integer, special_attack integer, special_defence integer, initiative integer, catch_rate integer,
+ID integer primary key,
+name varchar(50), category varchar(50), hp integer, attack integer, defence integer, special_attack integer, special_defence integer, initiative integer, catch_rate integer,
 evolution integer, evolution_level integer
 );
 
 create table if not exists Pokemon(
 ID integer auto_increment,
 blueprint integer,
+level integer,
 trainer integer,
 item varchar(50),
 primary key (ID, blueprint)
@@ -91,10 +92,11 @@ shop_city varchar(50),
 item varchar(50),
 primary key (shop_type, shop_city, item)
 );
+
+#alter table Pokemon_Blueprint 
+	#add foreign key (evolution) references Pokemon_Blueprint(ID);
+   
 /*
-alter table Pokemon_Blueprint 
-	add foreign key (evolution) references Pokemon_Blueprint(ID);
-    
 alter table Pokemon
 	add foreign key (blueprint) references Pokemon_Blueprint(ID),
 	add foreign key (trainer) references Trainer(ID),
@@ -134,6 +136,6 @@ alter table owns
 alter table sells
 	add foreign key (shop_type, shop_city) references Shop(type, city),
 	add foreign key (item) references Item(name);
-*/
+#*/
 
-select * from Pokemon;
+select * from Pokemon_Blueprint;
