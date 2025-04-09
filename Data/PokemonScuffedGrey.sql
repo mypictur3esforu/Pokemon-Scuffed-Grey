@@ -77,6 +77,7 @@ primary key (pokemon, destination)
 create table if not exists surpasses(
 type varchar(50),
 type2 varchar(50),
+factor double,
 primary key (type, type2)
 );
 
@@ -138,4 +139,4 @@ alter table sells
 	add foreign key (item) references Item(name);
 #*/
 
-select * from Pokemon_Blueprint;
+select * from possess;
