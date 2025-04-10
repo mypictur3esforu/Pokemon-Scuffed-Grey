@@ -1,9 +1,9 @@
-import mysql from 'mysql2'
+import {mysql} from 'mysql2'
 
-import dotenv from 'dotenv'
+import {dotenv} from 'dotenv'
 dotenv.config()
 
-var query = "SELECT * FROM Pokemon;";
+var query = "SELECT * FROM Pokemon_Blueprint;";
 var query2 = "SELECT * FROM notes;";
 
 const pool = mysql.createPool({
@@ -29,5 +29,3 @@ function showRows(){
 function main(){
   console.log("HELLO WORLD")
 }
-
-main()

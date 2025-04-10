@@ -17,25 +17,30 @@ insert into surpasses values('Dragon', 'Normal', 1);	insert into surpasses value
 insert into surpasses values('Dark', 'Normal', 1);	insert into surpasses values('Dark', 'Fighting', 0.5);	insert into surpasses values('Dark', 'Flying', 1);	insert into surpasses values('Dark', 'Poison', 1);	insert into surpasses values('Dark', 'Ground', 1);	insert into surpasses values('Dark', 'Rock', 1);	insert into surpasses values('Dark', 'Bug', 1);	insert into surpasses values('Dark', 'Ghost', 2);	insert into surpasses values('Dark', 'Steel', 1);	insert into surpasses values('Dark', 'Fire', 1);	insert into surpasses values('Dark', 'Water', 1);	insert into surpasses values('Dark', 'Grass', 1);	insert into surpasses values('Dark', 'Electric', 1);	insert into surpasses values('Dark', 'Psychic', 2);	insert into surpasses values('Dark', 'Ice', 1);	insert into surpasses values('Dark', 'Dragon', 1);	insert into surpasses values('Dark', 'Dark', 0.5);	insert into surpasses values('Dark', 'Fairy', 0.5);
 insert into surpasses values('Fairy', 'Normal', 1);	insert into surpasses values('Fairy', 'Fighting', 2);	insert into surpasses values('Fairy', 'Flying', 1);	insert into surpasses values('Fairy', 'Poison', 0.5);	insert into surpasses values('Fairy', 'Ground', 1);	insert into surpasses values('Fairy', 'Rock', 1);	insert into surpasses values('Fairy', 'Bug', 1);	insert into surpasses values('Fairy', 'Ghost', 1);	insert into surpasses values('Fairy', 'Steel', 0.5);	insert into surpasses values('Fairy', 'Fire', 0.5);	insert into surpasses values('Fairy', 'Water', 1);	insert into surpasses values('Fairy', 'Grass', 1);	insert into surpasses values('Fairy', 'Electric', 1);	insert into surpasses values('Fairy', 'Psychic', 1);	insert into surpasses values('Fairy', 'Ice', 1);	insert into surpasses values('Fairy', 'Dragon', 2);	insert into surpasses values('Fairy', 'Dark', 2);	insert into surpasses values('Fairy', 'Fairy', 1);
 
+insert into Destination values ("Home");
+insert into Destination values ("Battalia City");
+insert into city values ("Battalia City");
+insert into borders values ("Home", "Battalia City");
+insert into trainer values (null, "Lukas", 99999, "Home");
 
-insert into type('Normal');
-insert into type('Fighting');
-insert into type('Flying');
-insert into type('Poison');
-insert into type('Ground');
-insert into type('Rock');
-insert into type('Bug');
-insert into type('Ghost');
-insert into type('Steel');
-insert into type('Fire');
-insert into type('Water');
-insert into type('Grass');
-insert into type('Electric');
-insert into type('Psychic');
-insert into type('Ice');
-insert into type('Dragon');
-insert into type('Dark');
-insert into type('Fairy');
+insert into type values('Normal');
+insert into type values('Fighting');
+insert into type values('Flying');
+insert into type values('Poison');
+insert into type values('Ground');
+insert into type values('Rock');
+insert into type values('Bug');
+insert into type values('Ghost');
+insert into type values('Steel');
+insert into type values('Fire');
+insert into type values('Water');
+insert into type values('Grass');
+insert into type values('Electric');
+insert into type values('Psychic');
+insert into type values('Ice');
+insert into type values('Dragon');
+insert into type values('Dark');
+insert into type values('Fairy');
 
 
 insert into Pokemon_Blueprint values ( 1, 'Bulbasaur', 'Starter', 45,  49,  49, 65,  65,  45, 45, 2, 16);

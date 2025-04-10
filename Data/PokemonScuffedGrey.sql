@@ -8,19 +8,14 @@ name varchar(50), category varchar(50), hp integer, attack integer, defence inte
 evolution integer, evolution_level integer
 );
 
+drop table Pokemon;
 create table if not exists Pokemon(
 ID integer auto_increment,
 blueprint integer,
 level integer,
 trainer integer,
 item varchar(50),
-primary key (ID, blueprint)
-);
-
-create table if not exists Wild_Pokemon (
-ID integer auto_increment,
-blueprint integer,
-primary key (ID, blueprint)
+primary key (ID)
 );
 
 create table if not exists Attack (
@@ -94,6 +89,12 @@ item varchar(50),
 primary key (shop_type, shop_city, item)
 );
 
+create table if not exists borders (
+destination1 varchar(50),
+destination2 varchar(50),
+primary key (destination1, destination2)
+);
+
 #alter table Pokemon_Blueprint 
 	#add foreign key (evolution) references Pokemon_Blueprint(ID);
    
@@ -102,9 +103,6 @@ alter table Pokemon
 	add foreign key (blueprint) references Pokemon_Blueprint(ID),
 	add foreign key (trainer) references Trainer(ID),
 	add foreign key (item) references Item(name);
-    
-alter table Wild_Pokemon
-	add foreign key (ID, blueprint) references Pokemon(ID, blueprint);
     
 alter table Attack
 	add foreign key (type) references Type(name);
@@ -137,6 +135,8 @@ alter table owns
 alter table sells
 	add foreign key (shop_type, shop_city) references Shop(type, city),
 	add foreign key (item) references Item(name);
-#*/
 
-select * from possess;
+alter table borders 
+	add foreign key (destination1) references destination(name),
+    add foreign key (destination2) references destination(name);
+    #*/
