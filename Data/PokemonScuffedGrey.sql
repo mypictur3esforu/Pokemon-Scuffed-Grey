@@ -55,6 +55,11 @@ costs integer,
 type varchar(50) #Typ des Items hat nichts mit Typ eines Pokemons oder einer Attacke zu tun
 );
 
+create table if not exists Pokeball (
+name varchar(50) primary key,
+catch_factor integer
+);
+
 create table if not exists possess (
 pokemon integer,
 type varchar(50),
@@ -115,6 +120,9 @@ alter table Poke_Center
     
 alter table Trainer
 	add foreign key (destination) references destination(name);
+    
+alter table Pokeball
+	add foreign key (name) references Item(name);
 
 alter table possess
 	add foreign key (pokemon) references Pokemon(ID),
