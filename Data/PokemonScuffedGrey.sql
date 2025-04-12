@@ -8,7 +8,6 @@ name varchar(50), category varchar(50), hp integer, attack integer, defence inte
 evolution integer, evolution_level integer
 );
 
-drop table Pokemon;
 create table if not exists Pokemon(
 ID integer auto_increment,
 blueprint integer,
@@ -48,11 +47,12 @@ name varchar(50),
 money integer,
 destination varchar(50)
 );
-	
+
 create table if not exists Item (
 name varchar(50) primary key,
-costs integer,
-type varchar(50) #Typ des Items hat nichts mit Typ eines Pokemons oder einer Attacke zu tun
+category varchar (50),
+description varchar (500),
+costs integer
 );
 
 create table if not exists Pokeball (
@@ -148,3 +148,4 @@ alter table borders
 	add foreign key (destination1) references destination(name),
     add foreign key (destination2) references destination(name);
     #*/
+    
