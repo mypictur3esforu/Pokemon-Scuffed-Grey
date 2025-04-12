@@ -84,6 +84,7 @@ primary key (type, type2)
 create table if not exists owns (
 trainer integer,
 item varchar(50),
+amount integer,
 primary key (trainer, item)
 );
 
@@ -148,4 +149,8 @@ alter table borders
 	add foreign key (destination1) references destination(name),
     add foreign key (destination2) references destination(name);
     #*/
-    
+
+
+update item set name = "Pokeball" where name = "Poké Ball";
+insert into owns values (1, "Pokeball", 999);
+select * from owns;

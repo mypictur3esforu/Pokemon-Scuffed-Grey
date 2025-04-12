@@ -23,6 +23,13 @@ insert into city values ("Battalia City");
 insert into borders values ("Home", "Battalia City");
 insert into trainer values (null, "Lukas", 99999, "Home");
 
+update item set costs = 500 where category = "pokeballs";
+update item set name = "Pokeball" where name = "Poké Ball";
+update item set costs = 200 where name = "pokeball";
+update item set costs = 400 where name = "great ball";
+update item set costs = 600 where name = "ultra ball";
+update item set costs = NULL where name = "master ball";
+
 insert into type values('Normal');
 insert into type values('Fighting');
 insert into type values('Flying');
