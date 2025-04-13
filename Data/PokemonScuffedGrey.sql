@@ -27,7 +27,11 @@ create table if not exists Type (name varchar(50) primary key);
 
 create table if not exists Destination (name varchar(50) primary key);
 
-create table if not exists City (name varchar(50) primary key);
+create table if not exists Location(
+destination varchar(50),
+name varchar(50),
+primary key (destination, name)
+);
 
 create table if not exists Shop (
 type varchar(50),
@@ -45,7 +49,8 @@ create table if not exists Trainer (
 ID integer primary key auto_increment,
 name varchar(50),
 money integer,
-destination varchar(50)
+destination varchar(50),
+location varchar(50)
 );
 
 create table if not exists Item (
@@ -113,14 +118,17 @@ alter table Pokemon
 alter table Attack
 	add foreign key (type) references Type(name);
     
+alter table Location
+	add foreign key (destination) references destination(name)
+    
 alter table Shop
-	add foreign key(city) references city(name);
+	add foreign key(city, type) references location(destination, name);
     
 alter table Poke_Center
-	add foreign key(city) references city(name);
+	add foreign key(city, name) references location(destination, name);
     
 alter table Trainer
-	add foreign key (destination) references destination(name);
+	add foreign key (destination, location) references location(destination, name);
     
 alter table Pokeball
 	add foreign key (name) references Item(name);
@@ -151,5 +159,6 @@ alter table borders
     #*/
 
 
-insert into owns values (1, "Pokeball", 999);
-select * from owns;
+#insert into trainer values (1, "Lukas", 0, "Battalia City", "Home");
+update trainer set location = "Marktplatz" where id = 1;
+select * from trainer;
