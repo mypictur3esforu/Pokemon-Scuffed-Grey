@@ -151,6 +151,5 @@ alter table borders
     #*/
 
 
-update item set name = "Pokeball" where name = "Poké Ball";
 insert into owns values (1, "Pokeball", 999);
 select * from owns;
