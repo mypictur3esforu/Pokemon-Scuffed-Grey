@@ -34,15 +34,14 @@ primary key (destination, name)
 );
 
 create table if not exists Shop (
+destination varchar(50),
 type varchar(50),
-city varchar (50),
-primary key (type, city)
+primary key (destination, type)
 );
-
 create table if not exists Poke_Center (
+destination varchar(50),
 name varchar(50),
-city varchar(50),
-primary key (name, city)
+primary key (destination, name)
 );
 
 create table if not exists Trainer (
@@ -72,13 +71,13 @@ primary key (pokemon, type)
 );
 
 create table if not exists inhabits (
-pokemon integer,
+blueprint integer,
 destination varchar(50),
 location varchar(50),
 probability integer,
 min_level integer,
 max_level integer,
-primary key (pokemon, destination)
+primary key (blueprint, destination, location)
 );
 
 create table if not exists surpasses(
@@ -103,9 +102,9 @@ primary key (shop_type, shop_city, item)
 );
 
 create table if not exists borders (
-destination1 varchar(50),
-destination2 varchar(50),
-primary key (destination1, destination2)
+position varchar(50),
+target varchar(50),
+primary key (position, target)
 );
 
 #alter table Pokemon_Blueprint 
@@ -163,4 +162,24 @@ alter table borders
 
 #insert into trainer values (1, "Lukas", 0, "Battalia City", "Home");
 #update trainer set location = "Marktplatz" where id = 1;
-select * from item;
+/*select id from pokemon_blueprint
+where category like "%legendary%"
+or category like "%mythical%"
+or category like "%mega%"
+or category like "%ultra%"
+or category like "%paradox%";
+*/
+#group by category;
+
+/*insert into location values ("Battalia City", "Home");
+insert into location values ("Battalia City", "Marketplace");
+insert into location values ("Battalia City", "Main Poke Center");
+insert into Poke_Center values ("Battalia City", "Main Poke Center");
+*/
+
+select catch_rate, count(*) from Pokemon_Blueprint
+group by catch_rate;
+
+update trainer set destination = "Route 1", location = (select name from location where destination = "Route 1") where id = 1;
+select * from pokemon_blueprint where id between 460 and 470 and category like "%legendary%" limit 10;
+select * from pokemon_blueprint pb, inhabits i where pb.id = i.blueprint and pb.category like "%legendary%";
