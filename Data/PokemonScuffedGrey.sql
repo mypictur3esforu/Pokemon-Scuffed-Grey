@@ -160,5 +160,5 @@ alter table borders
 
 
 #insert into trainer values (1, "Lukas", 0, "Battalia City", "Home");
-update trainer set location = "Marktplatz" where id = 1;
-select * from trainer;
+#update trainer set location = "Marktplatz" where id = 1;
+select * from item;
