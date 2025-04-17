@@ -74,6 +74,8 @@ primary key (pokemon, type)
 create table if not exists inhabits (
 pokemon integer,
 destination varchar(50),
+location varchar(50),
+probability integer,
 min_level integer,
 max_level integer,
 primary key (pokemon, destination)
@@ -139,7 +141,7 @@ alter table possess
     
 alter table inhabits
 	add foreign key (pokemon) references Pokemon(ID),
-	add foreign key (destination) references Destination(name);
+	add foreign key (destination, location) references Location(destination, name);
     
 alter table surpasses
 	add foreign key (type) references Type(name),
