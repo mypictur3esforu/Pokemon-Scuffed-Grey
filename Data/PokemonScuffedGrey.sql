@@ -18,9 +18,13 @@ primary key (ID)
 );
 
 create table if not exists Attack (
-name varchar(50) primary key,
+name varchar(100) primary key,
 type varchar(50),
-damage double
+categroy varchar(50),
+power integer,
+accuracy integer,
+amount integer,
+description varchar(200)
 );
 
 create table if not exists Type (name varchar(50) primary key);
@@ -177,9 +181,9 @@ insert into location values ("Battalia City", "Main Poke Center");
 insert into Poke_Center values ("Battalia City", "Main Poke Center");
 */
 
-select catch_rate, count(*) from Pokemon_Blueprint
-group by catch_rate;
+-- select catch_rate, count(*) from Pokemon_Blueprint
+-- group by catch_rate;
 
-update trainer set destination = "Route 1", location = (select name from location where destination = "Route 1") where id = 1;
-select * from pokemon_blueprint where id between 460 and 470 and category like "%legendary%" limit 10;
-select * from pokemon_blueprint pb, inhabits i where pb.id = i.blueprint and pb.category like "%legendary%";
+-- update trainer set destination = "Route 1", location = (select name from location where destination = "Route 1") where id = 1;
+-- select * from pokemon_blueprint where id between 460 and 470 and category like "%legendary%" limit 10;
+-- select * from pokemon_blueprint pb, inhabits i where pb.id = i.blueprint and pb.category like "%legendary%";

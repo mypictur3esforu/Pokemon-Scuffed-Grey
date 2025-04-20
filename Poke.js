@@ -76,10 +76,12 @@ async function generatePokemon(){
 
 async function sql(sqlOrder) {
   let result = await pool.query(sqlOrder)
-  //console.log(result)
+  console.log(result)
   return Object.values(result)[0]
 }
 
 async function oneLinerSQL(sqlOrder){
   return Object.values((await sql(sqlOrder))[0])
 }
+
+console.log(await sql("Select * from inhabits where destination = 'Route 1'"));
