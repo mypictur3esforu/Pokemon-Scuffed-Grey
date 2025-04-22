@@ -2,6 +2,7 @@
 const express = require('express')
 //import path from 'path'
 const path = require('path')
+const { json } = require('stream/consumers')
 
 const app = express()
 
@@ -14,29 +15,27 @@ app.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, "Poke.html"))
 })
 
-app.get('/api/users', (req, res) => {
-    // const users = [{
-    //     id: "1",
-    //     name: "Bisasam",
-    // },{
-    //     id: "2",
-    //     name: "Bisaknosp"
-    // },{
-    //     id: "3",
-    //     name: "Bisaflor"
-    // }];
-    // res.json(users);
-    res.sendDate();
+app.get('/api/pokemon', (req, res) => {
+    const users = [{
+        id: "1",
+        name: "Bisasam",
+    },{
+        id: "2",
+        name: "Bisaknosp"
+    },{
+        id: "3",
+        name: "Bisaflor"
+    }];
+    res.status(200).json(users);
 })
 
-app.get('/api/1', (req, res) => {
-    const obj = [{name: "1"}, {name: "2"}]
-    res.json(obj)
+app.use(express.json())
+app.post('/sql', (req, res) => {
+    const {parcel} = req.body
+    console.log(parcel)
+    res.status(200).send({status: 'received'})
+    if(!parcel) res.status(400).send({status: 'Not received'})
 })
-
-app.get("/messages", (req, res) => {
-    res.send("Hello");
- });
 
 app.listen(8080, () => {
     console.log("Server running on 8080!");

@@ -6,21 +6,39 @@
 <body>
 <h1>PokeSQL</h1>
 <h2>Aufe dieser Seite kannst du lernen SQL zu programmieren und dabei meine Version von Pokemom zu spielen.</h2>
-SQL Befehl: <input>
-<button>Enter SQL Befehl</button>
+SQL Befehl: <input id="input">
+<button onclick="postOrder()">Enter SQL Befehl</button>
 <div><label id="ans">Hallo</label></div>
 </body>
 <script>
     //alert(await fetch("/messages"));
 
     async function temp() {
-    const res = await fetch('/api/users')
-    //const result = res.json()
-    console.log(res);
+        const res = await fetch('/api/pokemon', {
+        method: 'GET'
+        })
+        const data = await res.json()
+        console.log(data);
     }
-    //temp()
-    fetch('/api/users')
-    .then(response => response.json())
-    .then(users => console.log(users));
+    temp()
+    // fetch('/api/users')
+    // .then(response => response.json())
+    // .then(users => console.log(users));
+    //fetch('/api/messages')
+
+    const baseURL = 'http://localhost:8080'
+    async function postOrder() {
+        const input = document.getElementById("input")
+        if (input.value == "") {return}
+        const res = await fetch(baseURL+'/sql', {
+            method: 'POST',
+            headers:{
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                parcel: input.value
+            })
+        })
+    }
 </script>
 </html>
