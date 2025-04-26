@@ -84,4 +84,4 @@ async function oneLinerSQL(sqlOrder){
   return Object.values((await sql(sqlOrder))[0])
 }
 
-console.log(await sql("Select * from inhabits where destination = 'Route 1'"));
+//console.log(await sql("Select * from inhabits where destination = 'Route 1'"));

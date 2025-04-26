@@ -18,8 +18,13 @@ h2{
 }
 
 button{
-    height: 20%;
+    height: 5em;
     width: 90%;
+}
+
+input{
+    height: 10em;
+    width: 50%;
 }
 
 button:hover{

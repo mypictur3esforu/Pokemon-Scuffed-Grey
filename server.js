@@ -15,10 +15,6 @@ app.use(express.static('public'));
 
 app.get('/', (req, res) =>{
         res.sendFile(path.join(__dirname, "Poke.html"))
-    //     res.render('Poke.html', {
-    //         title: 'My Site',
-    //     nav: ['Home','About','Contact'] 
-    //   });
 });
 
 app.get('/api/pokemon', (req, res) => {
