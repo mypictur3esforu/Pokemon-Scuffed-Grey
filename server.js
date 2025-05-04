@@ -1,8 +1,11 @@
 //import express from 'express'
 const express = require('express')
+const { findSourceMap } = require('module')
 //import path from 'path'
 const path = require('path')
 const { json } = require('stream/consumers')
+const sql = Object.values(require("./Poke.js"))[1]
+// import {sql} from './Poke.js'
 
 const app = express()
 
@@ -17,18 +20,10 @@ app.get('/', (req, res) =>{
         res.sendFile(path.join(__dirname, "Poke.html"))
 });
 
-app.get('/api/pokemon', (req, res) => {
-    const users = [{
-        id: "1",
-        name: "Bisasam",
-    },{
-        id: "2",
-        name: "Bisaknosp"
-    },{
-        id: "3",
-        name: "Bisaflor"
-    }];
-    res.status(200).json(users);
+app.get('/api/pokemon', async function(req, res){
+    const pokemon = await sql("Select * from pokemon_blueprint limit 10")
+    console.log(pokemon);
+    res.status(200).json(pokemon);
 })
 
 app.use(express.json())
@@ -42,3 +37,4 @@ app.post('/sql', (req, res) => {
 app.listen(8080, () => {
     console.log("Server running on 8080!");
 })
+
