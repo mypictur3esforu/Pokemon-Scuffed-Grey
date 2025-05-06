@@ -4,8 +4,9 @@ const { findSourceMap } = require('module')
 //import path from 'path'
 const path = require('path')
 const { json } = require('stream/consumers')
-const sql = Object.values(require("./database.js"))[1]
-// import {sql} from './Poke.js'
+const database = Object.values(Object.values(require("./database.js"))[1])
+const sql = database[0]
+const preparedSQL = database[1]
 
 const app = express()
 
@@ -33,7 +34,18 @@ app.get('/api/pokemon', async function(req, res){
 app.use(express.json())
 app.post('/sql', async function(req, res){
     const {parcel} = req.body
+    console.log(parcel);
     const ans = await sql(parcel)
+    console.log(ans)
+    res.status(200).send({status: 'received'})
+    if(!parcel) res.status(400).send({status: 'Not received'})
+})
+
+app.post('/sql/prepared', async function(req, res) {
+    const {parcel} = req.body
+    console.log(parcel);
+    console.log(preparedSQL)
+    const ans = await preparedSQL(parcel[0], parcel[1])
     console.log(ans)
     res.status(200).send({status: 'received'})
     if(!parcel) res.status(400).send({status: 'Not received'})

@@ -80,10 +80,16 @@ async function sql(sqlOrder) {
   return Object.values(result)[0]
 }
 
+async function preparedSQL(sqlOrder, userInput) {
+  let result = await pool.query(sqlOrder, userInput)
+  // console.log(result)
+  return Object.values(result)[0]
+}
+
 async function oneLinerSQL(sqlOrder){
   return Object.values((await sql(sqlOrder))[0])
 }
 
 //console.log(await sql("Select * from inhabits where destination = 'Route 1'"));
 
-export default sql
+export default {sql, preparedSQL}

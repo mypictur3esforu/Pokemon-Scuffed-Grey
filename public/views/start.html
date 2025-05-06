@@ -3,12 +3,18 @@
     <head>
         <title>Start page</title>
         <link rel="stylesheet" type="text/css" href="/css/Poke.css">
-        <script src="/Poke2.js"></script>
+        <script src="/Poke.js"></script>
     </head>
 
     <body>
         <b>Enter your name</b> <br>
-        <input type="text">
-        <div><button onclick="">Done</button></div>   
+        <input type="text" id="nameInput" name="nameInput">
+        <div><button onclick="nameYou()">Done</button></div>   
     </body>
+    <script>
+        function nameYou(){
+            const name = document.getElementById("nameInput").value
+            insertIntoDB(null, null)
+        }
+    </script>
 </html>
