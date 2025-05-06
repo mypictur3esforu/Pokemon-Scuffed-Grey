@@ -4,7 +4,7 @@ const { findSourceMap } = require('module')
 //import path from 'path'
 const path = require('path')
 const { json } = require('stream/consumers')
-const sql = Object.values(require("./Poke.js"))[1]
+const sql = Object.values(require("./database.js"))[1]
 // import {sql} from './Poke.js'
 
 const app = express()
@@ -17,8 +17,12 @@ const app = express()
 app.use(express.static('public'));
 
 app.get('/', (req, res) =>{
-        res.sendFile(path.join(__dirname, "Poke.html"))
+    res.sendFile(path.join(__dirname, "public/views/Poke.html"))
 });
+
+app.get("/start", (req, res) =>{
+    res.sendFile(path.join(__dirname, "/public/views/start.html"))
+})
 
 app.get('/api/pokemon', async function(req, res){
     const pokemon = await sql("Select * from pokemon_blueprint limit 10")
@@ -27,9 +31,10 @@ app.get('/api/pokemon', async function(req, res){
 })
 
 app.use(express.json())
-app.post('/sql', (req, res) => {
+app.post('/sql', async function(req, res){
     const {parcel} = req.body
-    console.log(parcel)
+    const ans = await sql(parcel)
+    console.log(ans)
     res.status(200).send({status: 'received'})
     if(!parcel) res.status(400).send({status: 'Not received'})
 })
