@@ -28,7 +28,10 @@ description varchar(200)
 
 create table if not exists Type (name varchar(50) primary key);
 
-create table if not exists Destination (name varchar(50) primary key);
+create table if not exists Destination (
+name varchar(50) primary key,
+type varchar(50)
+);
 
 create table if not exists Location(
 destination varchar(50),
@@ -126,6 +129,9 @@ alter table Pokemon
     
 alter table Attack
 	add foreign key (type) references Type(name);
+    
+alter table Destination
+    add foreign key (type) references Type(name);
     
 alter table Location
 	add foreign key (destination) references destination(name)
