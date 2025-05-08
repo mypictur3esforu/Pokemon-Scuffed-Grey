@@ -1,7 +1,5 @@
-//import express from 'express'
 const express = require('express')
 const { findSourceMap } = require('module')
-//import path from 'path'
 const path = require('path')
 const { json } = require('stream/consumers')
 const database = Object.values(Object.values(require("./database.js"))[1])
@@ -20,11 +18,14 @@ app.get("/start", (req, res) =>{
     res.sendFile(path.join(__dirname, "/public/views/start.html"))
 })
 
-app.get('/api/pokemon', async function(req, res){
-    const pokemon = await sql("Select * from pokemon_blueprint limit 10")
-    console.log(pokemon);
-    res.status(200).json(pokemon);
+app.get('/map', function(req, res){
+    res.status(200).sendFile(path.join(__dirname, "/public/views/map.html"));
 })
+
+app.get('/destination/:des', function(req, res) {
+    console.log(req.params.des);
+    res.send(`Du hast '${req.params.des}' als Ziel angegeben.`);
+});
 
 app.use(express.json())
 app.post('/sql', async function(req, res){

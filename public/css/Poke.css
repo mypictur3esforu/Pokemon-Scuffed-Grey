@@ -30,3 +30,7 @@ input{
 button:hover{
     background-color: rgb(216, 216, 216);
 }
+
+area:hover{
+    cursor: pointer;
+}
