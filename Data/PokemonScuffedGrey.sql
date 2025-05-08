@@ -76,7 +76,7 @@ catch_factor integer
 );
 
 create table if not exists possess (
-pokemon integer,
+blueprint integer,
 type varchar(50),
 primary key (pokemon, type)
 );
