@@ -8,13 +8,19 @@
 
     <body>
         <b>Enter your name</b> <br>
-        <input type="text" id="nameInput" name="nameInput">
-        <div><button onclick="nameYou()">Done</button></div>   
+        <input type="text" id="name" name="nameInput">
+        <input type="password" id="password" name="passwordInput">
+        <div><button onclick="nameYou()">Done</button></div><br>
+        <div class="res"></div>
     </body>
     <script>
         function nameYou(){
-            const name = document.getElementById("nameInput").value
-            insertIntoDB(null, null)
+            const name = document.getElementById("name").value
+            const password = document.getElementById("password").value
+            // insertIntoDB(name, "insert into trainer values (null, ?, 0, 'Battlia City', 'Home'); ")
+            console.log("password:", password);
+            addPlayer(name, password)
         }
     </script>
+
 </html>

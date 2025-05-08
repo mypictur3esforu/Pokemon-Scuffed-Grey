@@ -1,4 +1,3 @@
-#drop database PokemonScuffedGrey;
 create database if not exists PokemonScuffedGrey;
 use PokemonScuffedGrey;
 
@@ -54,6 +53,11 @@ name varchar(50),
 money integer,
 destination varchar(50),
 location varchar(50)
+);
+
+create table if not exists Player (
+ID integer primary key auto_increment,
+password varchar(50)
 );
 
 create table if not exists Item (
@@ -134,6 +138,9 @@ alter table Poke_Center
     
 alter table Trainer
 	add foreign key (destination, location) references location(destination, name);
+    
+alter table Play
+	add foreign key (ID) references Trainer(ID);
     
 alter table Pokeball
 	add foreign key (name) references Item(name);

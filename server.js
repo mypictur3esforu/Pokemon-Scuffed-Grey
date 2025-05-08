@@ -10,11 +10,6 @@ const preparedSQL = database[1]
 
 const app = express()
 
-// app.use((err, req, res, next) =>{
-//     console.error(err.stack)
-//     res.status(500).send("Something broke")
-// })
-
 app.use(express.static('public'));
 
 app.get('/', (req, res) =>{
@@ -43,11 +38,10 @@ app.post('/sql', async function(req, res){
 
 app.post('/sql/prepared', async function(req, res) {
     const {parcel} = req.body
-    console.log(parcel);
-    console.log(preparedSQL)
     const ans = await preparedSQL(parcel[0], parcel[1])
-    console.log(ans)
-    res.status(200).send({status: 'received'})
+    // console.log(ans)
+    res.send(ans.insertId)
+    // res.status(200).send({status: 'received'}, ans.insertId)
     if(!parcel) res.status(400).send({status: 'Not received'})
 })
 
