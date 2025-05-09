@@ -20,8 +20,7 @@ async function generateSpawnRules() {
     and category not like "%paradox%"
     and category not like "%mega%";`
   ))
-  // for(let i = 0; i<pokemons.length; i++){
-    for(let i = 0; i<50; i++){
+  for(let i = 1; i<pokemons.length; i++){
       let bp_id = Object.values(pokemons[i])[0]
       const pokType = Object.values(await sql("select type from possess where blueprint = "+ bp_id+";"))
       let locs = (Object.values(await sql(
@@ -33,17 +32,14 @@ async function generateSpawnRules() {
         and l.name not like "%marketplace%"
         and l.name not in (select type from shop)
         and l.name not in (select name from poke_center);`)))
-    // for (let z = 0; z < 100; z++) {
     if(locs.length == 0) locs = Object.values(await sql(
       `select destination, name from location l
       where l.name not like "%home%"
       and l.name not like "%marketplace%"
       and l.name not in (select type from shop)
       and l.name not in (select name from poke_center);`))
-      let destination = Object.values(locs[random(0, locs.length -1)])[0]
-      const desType = await oneLinerSQL("select type from destination where name = '"+destination+"';")
-      if(desType == pokType[0] || desType == pokType[1]) break;
-    // }
+      // console.log("BP", bp_id, "Locs", locs);
+    let destination = Object.values(locs[random(0, locs.length -1)])[0]
     let location = Object.values(locs[random(0, locs.length -1)])[1]
     let min = (await oneLinerSQL("Select catch_rate from Pokemon_Blueprint where id = "+ bp_id+";"))[0]
     let probability = random(min, 1000) //random(catch_rate des Pokemons, 1000)
@@ -51,7 +47,7 @@ async function generateSpawnRules() {
     let max_level = min_level + 3
     let inhabits = "insert into inhabits values( "+bp_id+", '"+destination+"', '"+location+"', "+probability+", "+min_level+", "+max_level+");"  
     console.log(inhabits)
-    // await sql(inhabits)
+    await sql(inhabits)
   }
 }
 generateSpawnRules()
