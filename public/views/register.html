@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register</title>
+        <link rel="stylesheet" type="text/css" href="/css/Poke.css">
+        <link rel="stylesheet" type="text/css" href="/css/register.css">
+        <!-- <script type="module" src="/user.js"></script> -->
+        <script type="module" src="/user.js"></script>
+    </head>
+
+    <body>
+        <h1>Create an Account</h1>
+        <form>
+            <input type="text" id="name" name="nameInput" placeholder="Enter your name here:">
+            <input type="password" id="password" name="passwordInput" placeholder="Enter you Password here:">
+        </form>
+        <button onclick="register()">Submit</button>
+        <div type="text" class="res"></div>
+        <button id="con" style="display: none;" onclick="location='/login'">Continue</button>
+    </body>
+    <script>
+        async function register(){
+            const name = document.getElementById("name").value
+            const password = document.getElementById("password").value
+            // console.log(name, password);
+            // insertIntoDB(name, "insert into trainer values (null, ?, 0, 'Battlia City', 'Home'); ")
+            addPlayer(name, password)
+            //location = "/login"
+        }
+    </script>
+
+</html>

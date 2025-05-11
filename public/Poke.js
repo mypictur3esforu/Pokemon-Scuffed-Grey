@@ -13,6 +13,12 @@
         })
     }
 
+    /**
+     * Führt prepared SQL aus.
+     * @param {SQL order with ? for user input variables} insert 
+     * @param {User variables} userInput 
+     * @returns Gibt SQL Output zurück
+     */
     async function insertIntoDB(insert, userInput) {
         const ans = [insert, userInput]
         const res = await fetch(baseURL+'/sql/prepared', {
@@ -31,6 +37,12 @@
     
     // location="/"
     
+    /**
+     * Vereinfachte Form von insertIntoDB. Braucht nur Tabelle und Values, um Daten in die DB einzufügen.
+     * @param {Tabelle} table 
+     * @param {Variablen} values 
+     * @returns SQL Output
+     */
     async function insertIntoTable(table, values) {
         let insert = "insert into "+table+" values("
         insert = appendQuestionMarks(insert, values.length)
@@ -52,8 +64,12 @@
     }
 
     async function addPlayer(name, password) {
+        console.log("Player:", name);
+        if(name == "" || password == "") return
         const id = await insertIntoTable("trainer", [null, name, '0', "Battalia City", "Home"])
         await insertIntoTable('player', [id, password])
         document.getElementsByClassName("res")[0].value = "Your ID is: "+id+".\nMake sure to remember both your ID and your Password"
-        // insertIntoTable("Pokemon", [null, 1, 1, null, null])
-    }
+        //location = "/login"
+}
+
+    export default {insertIntoDB, insertIntoTable}

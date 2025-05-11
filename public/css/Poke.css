@@ -12,24 +12,6 @@ h1{
 h2{
     color: beige;
 }
-.diverse{
-    text-align: center;
-    background-color: black;
-}
-
-button{
-    height: 5em;
-    width: 90%;
-}
-
-input{
-    height: 10em;
-    width: 50%;
-}
-
-button:hover{
-    background-color: rgb(216, 216, 216);
-}
 
 area:hover{
     cursor: pointer;
