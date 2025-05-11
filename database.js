@@ -50,7 +50,7 @@ async function generateSpawnRules() {
     await sql(inhabits)
   }
 }
-generateSpawnRules()
+//generateSpawnRules()
 
 function random(min, max){
   let result = Math.round(Math.random()*max + min)
