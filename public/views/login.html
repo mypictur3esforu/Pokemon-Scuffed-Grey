@@ -23,9 +23,10 @@
             const resHTML = document.getElementById("res")
             // insertIntoDB(name, "insert into trainer values (null, ?, 0, 'Battlia City', 'Home'); ")
             //console.log("password:", password);
-            const login = await getPlayer(trainerID, password, resHTML)
-            if(!checkPlayer) resHTML.innerHTML = "Connection failed. Either your id or your password does not match (If you are unlucky neither of them are right))"
-        //location = "/map"
+            // const login = await checkPlayer(trainerID, password)
+            // console.log("Login:", login);
+            if(await checkPlayer(trainerID, password)) resHTML.innerHTML = "Connection success"
+            else resHTML.innerHTML = "Connection failed. Either your id or your password does not match (If you are unlucky neither of them are right))"
         }
     </script>
 

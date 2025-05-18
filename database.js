@@ -92,7 +92,7 @@ async function sql(sqlOrder) {
 }
 
 async function preparedSQL(sqlOrder, userInput) {
-  console.log("Prepared SQL:", sqlOrder, userInput);
+  // console.log("Prepared SQL:", sqlOrder, userInput);
   const result = await pool.query(sqlOrder, userInput)
   // console.log(result)
   return Object.values(result)[0]

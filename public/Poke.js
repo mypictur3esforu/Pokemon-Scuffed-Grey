@@ -32,7 +32,7 @@
         })
         console.log(res);
         const data = await res.json();
-        console.log("Data: \n"+data+"\n");
+        // console.log("Data: \n"+data+"\n");
         return data
     }
     
