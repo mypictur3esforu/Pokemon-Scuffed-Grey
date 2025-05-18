@@ -4,24 +4,28 @@
         <title>Register</title>
         <link rel="stylesheet" type="text/css" href="/css/Poke.css">
         <link rel="stylesheet" type="text/css" href="/css/register.css">
-        <script src="/Poke.js"></script>
+        <script type="module" src="/User.js"></script>
     </head>
 
     <body>
         <h1>Login into an account</h1>
-        <form>
-            <input type="text" id="name" name="nameInput" placeholder="Enter your name here:">
-            <input type="password" id="password" name="passwordInput" placeholder="Enter you Password here:">
-            <input type="submit" value="Submit" onclick="nameYou()">
-        </form>
+        <!-- <form> -->
+            <input type="text" id="trainerID"  placeholder="Enter your ID here:">
+            <input type="text" id="password" placeholder="Enter you Password here:">
+            <input type="submit" value="Submit" onclick="login()">
+        <!-- </form> -->
+        <div id="res"></div>
     </body>
     <script>
-        function login(){
-            const name = document.getElementById("name").value
+        async function login(){
+            const trainerID = document.getElementById("trainerID").value  
             const password = document.getElementById("password").value
+            const resHTML = document.getElementById("res")
             // insertIntoDB(name, "insert into trainer values (null, ?, 0, 'Battlia City', 'Home'); ")
-            console.log("password:", password);
-            addPlayer(name, password)
+            //console.log("password:", password);
+            const login = await getPlayer(trainerID, password, resHTML)
+            if(!checkPlayer) resHTML.innerHTML = "Connection failed. Either your id or your password does not match (If you are unlucky neither of them are right))"
+        //location = "/map"
         }
     </script>
 

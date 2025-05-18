@@ -51,9 +51,10 @@ app.post('/sql', async function(req, res){
 app.post('/sql/prepared', async function(req, res) {
     const {parcel} = req.body
     const ans = await preparedSQL(parcel[0], parcel[1])
-    // console.log(ans)
-    res.send(ans.insertId)
-    // res.status(200).send({status: 'received'}, ans.insertId)
+    console.log("Ans:", ans)
+    // res.send(ans.insertId)
+    // res.status(200).send({status: 'received'}, ans)
+    res.send(ans)
     if(!parcel) res.status(400).send({status: 'Not received'})
 })
 

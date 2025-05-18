@@ -19,7 +19,7 @@
      * @param {User variables} userInput 
      * @returns Gibt SQL Output zurück
      */
-    async function insertIntoDB(insert, userInput) {
+    async function preparedSQL(insert, userInput) {
         const ans = [insert, userInput]
         const res = await fetch(baseURL+'/sql/prepared', {
             method: 'POST',
@@ -30,6 +30,7 @@
                 parcel: ans
             })
         })
+        console.log(res);
         const data = await res.json();
         console.log("Data: \n"+data+"\n");
         return data
@@ -46,7 +47,7 @@
     async function insertIntoTable(table, values) {
         let insert = "insert into "+table+" values("
         insert = appendQuestionMarks(insert, values.length)
-        return await insertIntoDB(insert, values)
+        return await preparedSQL(insert, values)
     }
 
     /**
@@ -72,4 +73,4 @@
         //location = "/login"
 }
 
-    export default {insertIntoDB, insertIntoTable}
+    export default {preparedSQL, insertIntoTable}

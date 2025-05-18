@@ -86,16 +86,17 @@ async function generatePokemon(){
 }
 
 async function sql(sqlOrder) {
-  let result = await pool.query(sqlOrder)
+  const result = await pool.query(sqlOrder)
   // console.log(result)
   return Object.values(result)[0]
 }
 
 async function preparedSQL(sqlOrder, userInput) {
   console.log("Prepared SQL:", sqlOrder, userInput);
-  let result = await pool.query(sqlOrder, userInput)
+  const result = await pool.query(sqlOrder, userInput)
   // console.log(result)
   return Object.values(result)[0]
+  // return result
 }
 
 async function oneLinerSQL(sqlOrder){
