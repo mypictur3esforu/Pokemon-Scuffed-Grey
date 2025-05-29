@@ -11,22 +11,17 @@
         <h1>Login into an account</h1>
         <!-- <form> -->
             <input type="text" id="trainerID"  placeholder="Enter your ID here:">
-            <input type="text" id="password" placeholder="Enter you Password here:">
-            <input type="submit" value="Submit" onclick="login()">
+            <input type="password" id="password" placeholder="Enter you Password here:">
+            <input type="submit" value="Submit" onclick="checkLogin()">
         <!-- </form> -->
         <div id="res"></div>
     </body>
     <script>
-        async function login(){
+        async function checkLogin() {
             const trainerID = document.getElementById("trainerID").value  
             const password = document.getElementById("password").value
             const resHTML = document.getElementById("res")
-            // insertIntoDB(name, "insert into trainer values (null, ?, 0, 'Battlia City', 'Home'); ")
-            //console.log("password:", password);
-            // const login = await checkPlayer(trainerID, password)
-            // console.log("Login:", login);
-            if(await checkPlayer(trainerID, password)) resHTML.innerHTML = "Connection success"
-            else resHTML.innerHTML = "Connection failed. Either your id or your password does not match (If you are unlucky neither of them are right))"
+            resHTML.innerHTML = await login(trainerID, password)
         }
     </script>
 

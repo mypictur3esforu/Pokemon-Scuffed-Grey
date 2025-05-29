@@ -30,7 +30,7 @@
                 parcel: ans
             })
         })
-        console.log(res);
+        // console.log(res);
         const data = await res.json();
         // console.log("Data: \n"+data+"\n");
         return data
@@ -47,6 +47,7 @@
     async function insertIntoTable(table, values) {
         let insert = "insert into "+table+" values("
         insert = appendQuestionMarks(insert, values.length)
+        console.log(insert +" || " + values);
         return await preparedSQL(insert, values)
     }
 
@@ -64,13 +65,13 @@
         return string
     }
 
-    async function addPlayer(name, password) {
-        console.log("Player:", name);
-        if(name == "" || password == "") return
-        const id = await insertIntoTable("trainer", [null, name, '0', "Battalia City", "Home"])
-        await insertIntoTable('player', [id, password])
-        document.getElementsByClassName("res")[0].value = "Your ID is: "+id+".\nMake sure to remember both your ID and your Password"
-        //location = "/login"
-}
+//     async function addPlayer(name, password) {
+//         console.log("Player:", name);
+//         if(name == "" || password == "") return
+//         const id = await insertIntoTable("trainer", [null, name, '0', "Battalia City", "Home"])
+//         await insertIntoTable('player', [id, password])
+//         document.getElementsByClassName("res")[0].value = "Your ID is: "+id+".\nMake sure to remember both your ID and your Password"
+//         //location = "/login"
+// }
 
-    export default {preparedSQL, insertIntoTable}
+    export default {postOrder, preparedSQL, insertIntoTable}

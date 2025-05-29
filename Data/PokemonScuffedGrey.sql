@@ -60,7 +60,8 @@ location varchar(50)
 
 create table if not exists Player (
 ID integer primary key auto_increment,
-password varchar(50)
+password varchar(50),
+token integer
 );
 
 create table if not exists Item (
