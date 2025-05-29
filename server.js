@@ -14,28 +14,33 @@ const app = express()
 app.use(express.static('public'));
 
 app.get('/', (req, res) =>{
-    res.sendFile(path.join(__dirname, "public/views/Poke.html"))
+    res.sendFile(path.join(__dirname, "views/Poke.html"))
 });
 
-app.get('/city', (req, res) =>{
-    res.sendFile(path.join(__dirname, "public/views/city.html"))
+app.get('/destination/:destination', (req, res) =>{
+    res.sendFile(path.join(__dirname, "views/destination.html"))
 });
 
 app.get("/register", (req, res) =>{
-    res.sendFile(path.join(__dirname, "/public/views/register.html"))
+    res.sendFile(path.join(__dirname, "/views/register.html"))
 })
 
 app.get("/login", (req, res) =>{
-    res.sendFile(path.join(__dirname, "/public/views/login.html"))
+    res.sendFile(path.join(__dirname, "/views/login.html"))
 })
 
 app.get('/map', function(req, res){
-    res.status(200).sendFile(path.join(__dirname, "/public/views/map.html"));
+    res.status(200).sendFile(path.join(__dirname, "/views/map.html"));
 })
 
-app.get('/destination/:destination', function(req, res) {
-    console.log(req.params.destination);
-    res.send(`Du hast '${req.params.destination}' als Ziel angegeben.`);
+app.set('view engine', 'ejs')
+
+app.get('/preview/:destination', async function(req, res) {
+    const destination = req.params.destination
+    console.log(destination);
+    const pokemonSpawns = await sql("select * from inhabits, pokemon_blueprint where id = blueprint and destination= '" + destination +"';")
+    console.log(pokemonSpawns);
+    res.render("city_preview", {pokemonSpawns: Object.values(pokemonSpawns)})
 });
 
 app.use(express.json())

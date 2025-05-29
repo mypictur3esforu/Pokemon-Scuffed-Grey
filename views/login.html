@@ -3,7 +3,7 @@
     <head>
         <title>Register</title>
         <link rel="stylesheet" type="text/css" href="/css/Poke.css">
-        <link rel="stylesheet" type="text/css" href="/css/register.css">
+        <link rel="stylesheet" type="text/css" href="/css/user.css">
         <script type="module" src="/User.js"></script>
     </head>
 
@@ -15,13 +15,15 @@
             <input type="submit" value="Submit" onclick="checkLogin()">
         <!-- </form> -->
         <div id="res"></div>
+        <button onclick="location= '/register'" class="linkButton">No account? Register here!</button>
     </body>
     <script>
         async function checkLogin() {
             const trainerID = document.getElementById("trainerID").value  
             const password = document.getElementById("password").value
             const resHTML = document.getElementById("res")
-            resHTML.innerHTML = await login(trainerID, password)
+            if (await login(trainerID, password)) resHTML.innerHTML = "Login success"
+            else resHTML.innerHTML = "Login has failed! Password or username is wrong."
         }
     </script>
 

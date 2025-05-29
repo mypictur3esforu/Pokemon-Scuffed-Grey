@@ -3,29 +3,27 @@
     <head>
         <title>Register</title>
         <link rel="stylesheet" type="text/css" href="/css/Poke.css">
-        <link rel="stylesheet" type="text/css" href="/css/register.css">
-        <!-- <script type="module" src="/user.js"></script> -->
+        <link rel="stylesheet" type="text/css" href="/css/user.css">
         <script type="module" src="/user.js"></script>
     </head>
 
     <body>
         <h1>Create an Account</h1>
-        <form>
+        <!-- <form> -->
             <input type="text" id="name" name="nameInput" placeholder="Enter your name here:">
             <input type="password" id="password" name="passwordInput" placeholder="Enter you Password here:">
-        </form>
-        <button onclick="register()">Submit</button>
+        <!-- </form> -->
+        <input type="submit" value="Submit" onclick="register()">
         <div type="text" class="res"></div>
         <button id="con" style="display: none;" onclick="location='/login'">Continue</button>
+        <button onclick="location= '/login'" class="linkButton">Already have an account? Login in here</button>
     </body>
     <script>
         async function register(){
             const name = document.getElementById("name").value
             const password = document.getElementById("password").value
-            // console.log(name, password);
-            // insertIntoDB(name, "insert into trainer values (null, ?, 0, 'Battlia City', 'Home'); ")
+            document.getElementsByClassName("linkButton")[0].style = "diplay:none;"
             addPlayer(name, password)
-            //location = "/login"
         }
     </script>
 

@@ -86,6 +86,7 @@ async function generatePokemon(){
 }
 
 async function sql(sqlOrder) {
+  console.log(sqlOrder);
   const result = await pool.query(sqlOrder)
   // console.log(result)
   return Object.values(result)[0]

@@ -3,14 +3,14 @@
 <head>
     <title>City</title>
     <link rel="stylesheet" type="text/css" href="../css/Poke.css">
-    <link rel="stylesheet" type="text/css" href="../css/city.css">
+    <link rel="stylesheet" type="text/css" href="../css/city_preview.css">
     <script src="/city.js"></script>
 </head>
 
 <body>
     <h1 >City: </h1>
     <div class="container">
-        <button onclick="goToMap()">← <b>Go Back</b></button>
+        <button onclick="goToMap()">← <b>Map</b></button>
         <button><b>Visit Destination</b></button>
     </div>
     <h2>Pokemon</h2>
@@ -44,5 +44,14 @@
         <li>Poke Center</li>
         <li>Shop</li>
     </ul>
+    <table>
+        <tr>
+            <th>Destination</th>
+            <th>Blueprint</th>
+        </tr>
+            <% pokemonSpawns.forEach(spawn => { %>
+            <tr><td><%= spawn.destination %></td> <td><%= spawn.name %></td></tr>
+        <% }); %>
+    </table>
 </body>
 </html>

@@ -20,3 +20,13 @@ input{
 button:hover{
     background-color: rgb(216, 216, 216);
 }
+
+.linkButton{
+    border-radius: 2em;
+    width: 20%;
+    margin-top: 20%;
+}
+
+input[type=submit]:hover{
+    cursor: pointer;
+}

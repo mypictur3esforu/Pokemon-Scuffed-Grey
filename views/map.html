@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map</title>
+    <link rel="stylesheet" type="text/css" href="/css/Poke.css">
+    <script src="/Poke.js"></script>
+</head>
+
+<body onLoad="cookies(); links()">
+<h1>PokeSQL</h1>
+<img src="/map.jpg" usemap="#worldMap" alt="Beispielbild">
+<map name="worldMap">
+    <area shape="rect" coords="169,101,259,143" alt="Bereich 1" id="city1">
+    <area shape="rect" coords="222,250,312,292" alt="Bereich 2" id="city2">
+    <area shape="rect" coords="755,110,845,152" alt="Bereich 3" id="city3">
+    <area shape="rect" coords="482,155,572,197" alt="Bereich 4" id="city4">
+    <area shape="rect" coords="470,313,560,355" alt="Bereich 5" id="city5">
+    <area shape="rect" coords="825,320,905,362" alt="Bereich 6" id="city6">
+    <area shape="rect" coords="465,470,555,512" alt="Bereich 7" id="city7">
+    <area shape="rect" coords="120,420,210,462" alt="Bereich 8" id="city8">
+    <area shape="rect" coords="798,502,878,544" alt="Bereich 9" id="city9">
+    <area shape="rect" coords="200,560,290,602" alt="Bereich 10" id="city10">
+    <area shape="rect" coords="105,675,195,717" alt="Bereich 11" id="city11">
+    <area shape="rect" coords="460,672,550,714" alt="Bereich 12" id="city12">
+    <area shape="rect" coords="803,745,893,787" alt="Bereich 13" id="city13">
+    <area shape="rect" coords="240,833,330,875" alt="Bereich 14" id="city14">
+    <area shape="rect" coords="463,830,553,872" alt="Bereich 15" id="city15">
+</map>
+</body>
+<script>
+
+function links(){
+    const baseURL = "/preview/"
+    const urls = ["Northern Frostwind", "zuge", "gibrpuz"]
+    for (let i = 1; i < 16; i++) {
+        let element = document.getElementById("city"+i)
+        element.href = baseURL + urls[i -1]
+        // element.href = baseURL + i
+    }
+}
+
+    function cookies(){
+        const cooked = document.cookie
+        console.log(cooked);
+    }
+</script>
+</html>

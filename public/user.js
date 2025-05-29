@@ -20,19 +20,39 @@ async function checkPlayer(id, password) {
 }
 
 async function login(id, password) {
-        if(!await checkPlayer(id, password)) return "Login has failed! Password or username is wrong."
+        if(!await checkPlayer(id, password)) return false
+        newToken(id)
+        return true
+}
+
+async function newToken(id) {
         const token = generateToken();
-        document.cookie="token=" + token + ";"
-        const res = sql("update player set token = "+token+" where id="+id+";")
-        return "Login Success!"
+        const cookie = {id: id, token: token}
+        // createCookie("player", JSON.stringify(cookie))
+        // deleteCookie("player")
+        // document.cookie = "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+        document.cookie = '""=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+        console.log(document.cookie = document.cookie.split("{")[0] + "=; expires");
+        const updateToken = "update player set token = "+token+" where id="+id+";"
+        const res = await sql(updateToken)
+}
+
+function deleteCookie(cookieName){
+        document.cookie = cookieName+ "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+}
+
+function createCookie(cookieName, value, expiration){
+        if (expiration == "" || expiration == null) document.cookie = cookieName+"= "+ value +"; path=/"
+        else document.cookie = cookieName+"= "+ value +"; expires="+ expiration +";"
 }
 
 function generateToken(){
         let token = ""
-        for (let i = 0; i < 20; i++) {
-                token += Math.round(Math.random()*20)
+        for (let i = 0; i < 9; i++) {
+                token += Math.round(Math.random()*9)
         }
         // console.log(token);
+        return token
 }
 
 window.addPlayer = addPlayer;
