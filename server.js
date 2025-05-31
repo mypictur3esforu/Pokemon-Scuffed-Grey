@@ -38,7 +38,11 @@ app.set('view engine', 'ejs')
 app.get('/preview/:destination', async function(req, res) {
     const destination = req.params.destination
     console.log(destination);
-    const pokemonSpawns = await sql("select * from inhabits, pokemon_blueprint where id = blueprint and destination= '" + destination +"';")
+    const pokemonSpawns = await preparedSQL(
+        `with sum as (select sum(probability) as addedProb from inhabits where destination = 'Northern Frostwind')
+        select row_number() over (order by location) as 'row', location, name, min_level, max_level, round(100 * probability / addedProb, 2) as probability
+        from inhabits natural join (select id as blueprint, name, catch_rate from pokemon_blueprint) x, sum
+        where destination = ?;`, [destination])
     console.log(pokemonSpawns);
     res.render("city_preview", {pokemonSpawns: Object.values(pokemonSpawns)})
 });
