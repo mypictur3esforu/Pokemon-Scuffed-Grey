@@ -17,27 +17,25 @@ async function usernameAvailable(username) {
         return res.length < 1
 }
 
-async function checkPlayerLogin(id, password) {
-        // console.log(id, password);
-        return Object.values(await preparedSQL("Select * from player where id = ? and password = ?", [id, password])).length == 1
+async function checkPlayerLogin(username, password) {
+        // console.log(username, password);
+        return Object.values(await preparedSQL("select * from player where username = ? and password = ?", [username, password])).length == 1
 }
 
-async function login(id, password) {
-        if(!await checkPlayerLogin(id, password)) return false
-        newToken(id)
+async function login(username, password) {
+        if(!await checkPlayerLogin(username, password)) return false
+        newToken(username)
         return true
 }
 
-async function newToken(id) {
+async function newToken(username) {
         const token = generateToken();
-        const cookie = {id: id, token: token}
+        const cookie = {username: username, token: token}
         // createCookie("player", JSON.stringify(cookie))
-        // deleteCookie("player")
-        // document.cookie = "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
         document.cookie = '""=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-        console.log(document.cookie = document.cookie.split("{")[0] + "=; expires");
-        const updateToken = "update player set token = "+token+" where id="+id+";"
-        const res = await sql(updateToken)
+        // console.log(document.cookie = document.cookie.split("{")[0] + "=; expires");
+        const updateToken = "update player set token = ? where username = ?"
+        const res = await preparedSQL(updateToken, [token, username])
 }
 
 function deleteCookie(cookieName){

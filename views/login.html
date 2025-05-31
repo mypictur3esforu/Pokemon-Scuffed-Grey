@@ -10,7 +10,7 @@
     <body>
         <h1>Login into an account</h1>
         <!-- <form> -->
-            <input type="text" id="trainerID"  placeholder="Enter your ID here:">
+            <input type="text" id="username"  placeholder="Enter your username here:">
             <input type="password" id="password" placeholder="Enter you Password here:">
             <input type="submit" value="Submit" onclick="checkLogin()">
         <!-- </form> -->
@@ -19,10 +19,10 @@
     </body>
     <script>
         async function checkLogin() {
-            const trainerID = document.getElementById("trainerID").value  
+            const username = document.getElementById("username").value  
             const password = document.getElementById("password").value
             const resHTML = document.getElementById("res")
-            if (await login(trainerID, password)) resHTML.innerHTML = "Login success"
+            if (await login(username, password)) resHTML.innerHTML = "Login success"
             else resHTML.innerHTML = "Login has failed! Password or username is wrong."
         }
     </script>
