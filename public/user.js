@@ -3,24 +3,27 @@ const preparedSQL = dbAccess.preparedSQL
 const insertIntoTable = dbAccess.insertIntoTable
 const sql = dbAccess.postOrder
 
-async function addPlayer(name, password) {
-        console.log("Player:", name);
-        if(name == "" || password == "") return
-        const res = await insertIntoTable("trainer", [null, name, '0', "Battalia City", "Home"])
-        const id = res.insertId
-        console.log(id);
-        await insertIntoTable('player', [id, password, 0])
-        document.getElementsByClassName("res")[0].innerHTML = "Your ID is: <b style ='color:red;'>"+id+"</b>.\nMake sure to remember both your ID and your Password"
-        document.getElementById("con").style = "display: block;"
+async function addPlayer(name, username, password) {
+        if(name == "" || password == "" || username == "") return null
+        if (! await usernameAvailable(username)) return false
+        console.log("Hallo");
+        await insertIntoTable("trainer", [username, name, '0', "Battalia City", "Home"])
+        await insertIntoTable('player', [username, password, 0])
+        return true
 }
 
-async function checkPlayer(id, password) {
+async function usernameAvailable(username) {
+        const res = Object.values(await preparedSQL("select * from trainer where username = ?", [username]))
+        return res.length < 1
+}
+
+async function checkPlayerLogin(id, password) {
         // console.log(id, password);
         return Object.values(await preparedSQL("Select * from player where id = ? and password = ?", [id, password])).length == 1
 }
 
 async function login(id, password) {
-        if(!await checkPlayer(id, password)) return false
+        if(!await checkPlayerLogin(id, password)) return false
         newToken(id)
         return true
 }
@@ -56,5 +59,5 @@ function generateToken(){
 }
 
 window.addPlayer = addPlayer;
-window.checkPlayer = checkPlayer;
+window.checkPlayerLogin = checkPlayerLogin;
 window.login = login;

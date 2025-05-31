@@ -51,7 +51,7 @@ primary key (destination, name)
 );
 
 create table if not exists Trainer (
-ID integer primary key auto_increment,
+username varchar(50) primary key,
 name varchar(50),
 money integer,
 destination varchar(50),
@@ -59,7 +59,7 @@ location varchar(50)
 );
 
 create table if not exists Player (
-ID integer primary key auto_increment,
+username varchar(50) primary key,
 password varchar(50),
 token integer
 );
@@ -146,8 +146,8 @@ alter table Poke_Center
 alter table Trainer
 	add foreign key (destination, location) references location(destination, name);
     
-alter table Play
-	add foreign key (ID) references Trainer(ID);
+alter table Player
+	add foreign key (username) references Trainer(username);
     
 alter table Pokeball
 	add foreign key (name) references Item(name);

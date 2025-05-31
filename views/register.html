@@ -10,20 +10,35 @@
     <body>
         <h1>Create an Account</h1>
         <!-- <form> -->
-            <input type="text" id="name" name="nameInput" placeholder="Enter your name here:">
+            <input type="text" id="name" name="nameInput" placeholder="Enter your in game name:">
+            <input type="text" id="username" name="usernameInput" placeholder="Enter your username here:">
             <input type="password" id="password" name="passwordInput" placeholder="Enter you Password here:">
         <!-- </form> -->
         <input type="submit" value="Submit" onclick="register()">
-        <div type="text" class="res"></div>
+        <div type="text" id="res"></div>
         <button id="con" style="display: none;" onclick="location='/login'">Continue</button>
         <button onclick="location= '/login'" class="linkButton">Already have an account? Login in here</button>
     </body>
     <script>
         async function register(){
             const name = document.getElementById("name").value
+            const username = document.getElementById("username").value
             const password = document.getElementById("password").value
+            const res = await addPlayer(name, username, password)
+            answer(res)
+        }
+
+        function answer(response){
+            console.log(response);
+            if(!response || response == null){ 
+                if (response == null) document.getElementById('res').innerHTML = 'Fill in the open inputs'
+                else document.getElementById('res').innerHTML = 'This username is taken, choose another one'
+                return
+            }
+
+            document.getElementById('res').innerHTML = "Your account has been added to the database.\nMake sure to remember your username and password!"
             document.getElementsByClassName("linkButton")[0].style = "diplay:none;"
-            addPlayer(name, password)
+            document.getElementById("con").style = "display: block;"
         }
     </script>
 
