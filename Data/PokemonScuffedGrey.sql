@@ -11,7 +11,7 @@ create table if not exists Pokemon(
 ID integer auto_increment,
 blueprint integer,
 level integer,
-trainer integer,
+trainer varchar(50),
 item varchar(50),
 primary key (ID)
 );
@@ -100,7 +100,7 @@ primary key (type, type2)
 );
 
 create table if not exists owns (
-trainer integer,
+trainer varchar(50),
 item varchar(50),
 amount integer,
 primary key (trainer, item)

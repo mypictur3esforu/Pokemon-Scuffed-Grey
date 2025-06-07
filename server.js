@@ -37,30 +37,38 @@ app.set('view engine', 'ejs')
 
 app.get('/preview/:destination', async function(req, res) {
     const destination = req.params.destination
-    console.log(destination);
+    // console.log(destination);
     const pokemonSpawns = await preparedSQL(
-        `with sum as (select sum(probability) as addedProb from inhabits where destination = 'Northern Frostwind')
+        `with sum as (select sum(probability) as addedProb from inhabits where destination = ?)
         select row_number() over (order by location) as 'row', location, name, min_level, max_level, round(100 * probability / addedProb, 2) as probability
         from inhabits natural join (select id as blueprint, name, catch_rate from pokemon_blueprint) x, sum
-        where destination = ?;`, [destination])
-    console.log(pokemonSpawns);
-    res.render("city_preview", {pokemonSpawns: Object.values(pokemonSpawns)})
+        where destination = ?;`, [destination, destination])
+    const trainers = await preparedSQL(
+        `select name, money, location, round(avg(level), 1) as avarageLevel, count(*) as anzahlPokemon
+        from trainer, pokemon
+        where destination = ? 
+        and trainer = username
+        group by username
+        having anzahlPokemon > 0`, [destination])
+    // console.log(pokemonSpawns);
+    res.render("city_preview", {pokemonSpawns: Object.values(pokemonSpawns), trainers: Object.values(trainers)});
 });
 
 app.use(express.json())
 app.post('/sql', async function(req, res){
     const {parcel} = req.body
-    console.log(parcel);
+    // console.log(parcel);
     const ans = await sql(parcel)
     console.log(ans)
-    res.status(200).send({status: 'received'})
+    // res.status(200).send(ans)
+    res.send(ans)
     if(!parcel) res.status(400).send({status: 'Not received'})
 })
 
 app.post('/sql/prepared', async function(req, res) {
     const {parcel} = req.body
     const ans = await preparedSQL(parcel[0], parcel[1])
-    console.log("Ans:", ans)
+    // console.log("Ans:", ans)
     // res.send(ans.insertId)
     // res.status(200).send({status: 'received'}, ans)
     res.send(ans)
@@ -68,10 +76,13 @@ app.post('/sql/prepared', async function(req, res) {
 })
 
 app.get("/fight", (req, res) =>{
-    res.sendFile(path.join(__dirname, "/public/views/fight.html"))
+    res.sendFile(path.join(__dirname, "/views/fight.html"))
+})
+
+app.get("/pokedex", (req, res) =>{
+    res.sendFile(path.join(__dirname, "/views/pokedex.html"))
 })
 
 app.listen(8080, () => {
     console.log("Server running on 8080!");
 })
-

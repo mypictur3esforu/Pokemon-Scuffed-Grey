@@ -18,17 +18,25 @@
     <table>
         <tr>
             <th>Trainer</th>
+            <th>Location</th>
             <th>Reward</th>
             <th>avg Team Level</th>
+            <th>amount of Pokemon</th>
         </tr>
-        <tr>
-            <td>Ash</td>
-            <td>1500</td>
-            <td>87</td>
-        </tr>
+        <% trainers.forEach(trainer => { %>
+            <tr>
+                <td><%= trainer.name %></td>
+                <td><%= trainer.location %></td>
+                <td><%= trainer.money %></td>
+                <td><%= trainer.avarageLevel %></td>
+                <td><%= trainer.anzahlPokemon %></td>
+            </tr>
+        <% }); %>
     </table>
 
     <h2>Pokemon</h2>
+
+
     <table>
         <tr>
             <th>Number</th>
@@ -37,7 +45,8 @@
             <th>Probability in %</th>
             <th>Level Range</th>
         </tr>
-            <% pokemonSpawns.forEach(spawn => { %>
+        
+        <% pokemonSpawns.forEach(spawn => { %>
             <tr>
                 <td><%= spawn.row %></td>
                 <td><%= spawn.location %></td>

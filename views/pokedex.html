@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8" />
+   <title>Pokedex</title>
+   <link rel="stylesheet" type="text/css" href="/css/Poke.css">
+   <link rel="stylesheet" type="text/css" href="/css/pokedex.css">
+   <script type='module' src="/pokedex.js"></script>
+</head>
+<body>
+   <h1>Pokedex</h1>
+   <div class="search-wrapper">
+    <label for="search">Search Pokemon</label>
+    <input type="search" id="search" data-search>
+  </div>
+  <div class="entry-cards" pokedex-entry-cards-container>
+      <template pokedex-entry-template>
+         <div class="card">
+            <div class="name" entry-name></div>
+            <div class="body" entry-body></div>
+         </div>
+      </template>
+   </div>
+</body>
+</html>

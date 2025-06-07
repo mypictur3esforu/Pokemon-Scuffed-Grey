@@ -6,7 +6,6 @@ const sql = dbAccess.postOrder
 async function addPlayer(name, username, password) {
         if(name == "" || password == "" || username == "") return null
         if (! await usernameAvailable(username)) return false
-        console.log("Hallo");
         await insertIntoTable("trainer", [username, name, '0', "Battalia City", "Home"])
         await insertIntoTable('player', [username, password, 0])
         return true
@@ -14,6 +13,7 @@ async function addPlayer(name, username, password) {
 
 async function usernameAvailable(username) {
         const res = Object.values(await preparedSQL("select * from trainer where username = ?", [username]))
+        // console.log(res);
         return res.length < 1
 }
 
