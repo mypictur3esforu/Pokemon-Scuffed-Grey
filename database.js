@@ -24,20 +24,20 @@ async function generateSpawnRules() {
       let bp_id = Object.values(pokemons[i])[0]
       const pokType = Object.values(await sql("select type from possess where blueprint = "+ bp_id+";"))
       let locs = (Object.values(await sql(
-        `select destination, l.name from location l, possess p, destination d
+        `select destination, l.name
+        from location l, possess p, destination d
         where l.destination = d.name
-        and p.type = d.type
-        and p.blueprint =`+bp_id+` 
+        and 
+	      case 
+          when p.type in( d.type)
+          then p.type = d.type
+          else true
+	      end
+        and p.blueprint = `+ pb_id +`
         and l.name not like "%home%"
         and l.name not like "%marketplace%"
         and l.name not in (select type from shop)
         and l.name not in (select name from poke_center);`)))
-    if(locs.length == 0) locs = Object.values(await sql(
-      `select destination, name from location l
-      where l.name not like "%home%"
-      and l.name not like "%marketplace%"
-      and l.name not in (select type from shop)
-      and l.name not in (select name from poke_center);`))
       // console.log("BP", bp_id, "Locs", locs);
     let destination = Object.values(locs[random(0, locs.length -1)])[0]
     let location = Object.values(locs[random(0, locs.length -1)])[1]
@@ -64,29 +64,30 @@ function random(min, max){
  * 3. Random Zahl wird generiert und es wird geschaut in welcher Probability Range die random Zahl liegt. Das ist die Blaupause des neuen Pokemon!
  * 4. insert Statement wird generiert. 
  */
-async function generatePokemon(){
-  let playerLoq = (await oneLinerSQL("Select destination, location from trainer where id = 1;"))
-  let destination = playerLoq[0]
-  let location = playerLoq[1]
+async function generatePokemon(destination, location, amount){
+  // let playerLoq = (await oneLinerSQL("Select destination, location from trainer where id = 1;"))
+  // let destination = playerLoq[0]
+  // let location = playerLoq[1]
   const bpsInLocation = await sql("Select blueprint from inhabits where destination = '"+destination+"' and location = '"+location+"';")
   let allProbsInLoq = await sql("Select probability from inhabits where destination = '"+destination+"' and location = '"+location+"';")
   let addedProbs = [parseInt(Object.values(allProbsInLoq[0]))]
   for (let i = 1; i < allProbsInLoq.length; i++) {
     addedProbs[i] = parseInt(Object.values(allProbsInLoq[i])) + addedProbs[i-1]    
   }
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < amount; i++) {
     let bpProb = random(0, addedProbs[addedProbs.length-1])
     let z; for( z = 0; parseInt(bpProb) > parseInt(addedProbs[z]); z++){}
     const bp = Object.values(bpsInLocation[z])[0]
     console.log(await oneLinerSQL("Select name from pokemon_blueprint where id = " +bp+";"));
     const level = await oneLinerSQL("Select min_level, max_level from inhabits where blueprint = "+bp+" and destination = '"+ destination+"' and location = '"+location+"';")
-    let insert = "insert into Pokemon values (null, "+bp+", "+(level[0]+random(0, level[1]-level[0]))+", null, null);"
-    console.log(insert);
+    let insert = "insert into Pokemon values (null, "+bp+", "+(level[0]+random(0, level[1]-level[0]))+", 'NPC 0', null);"
+    // console.log(insert);
+    await sql(insert)
   }
 }
 
 async function sql(sqlOrder) {
-  console.log(sqlOrder);
+  // console.log(sqlOrder);
   const result = await pool.query(sqlOrder)
   // console.log(result)
   return Object.values(result)[0]
@@ -97,11 +98,32 @@ async function preparedSQL(sqlOrder, userInput) {
   const result = await pool.query(sqlOrder, userInput)
   // console.log(result)
   return Object.values(result)[0]
-  // return result
 }
 
 async function oneLinerSQL(sqlOrder){
   return Object.values((await sql(sqlOrder))[0])
 }
+
+async function trainerSpawner(destination){
+  destination = 'Northern Frostwind'
+  const loqs = Object.values( await preparedSQL('select name from location where destination = ?', [destination]))
+  for(let i = 0; i < 20; i++){
+    let name = 'NPC ' + i
+    try{
+    console.log(await preparedSQL('insert into trainer values (?,?,?,?,?)', [name, name, random(5, 50)* 100, destination, loqs[random(0, loqs.length - 1)].name]))
+    }catch{
+      console.error('Error occured while inserting trainer into the database!')
+    }
+  }
+}
+
+async function destinationPokemonGenerator(destination) { 
+  let loqs = Object.values(await preparedSQL('select * from location where destination = ? and name in(select location from inhabits where destination = ?)', [destination, destination]))
+  for (let i = 0; i < loqs.length; i++) {
+    await generatePokemon(destination, loqs[i].name, 5)
+  }
+}
+
+// await destinationPokemonGenerator('Northern Frostwind')
 
 export default {sql, preparedSQL}
