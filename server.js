@@ -77,7 +77,7 @@ app.post('/sql/prepared', async function(req, res) {
 })
 
 app.get("/fight", async function(req, res){
-    const gegnerId = 1, playerId = 10
+    const gegnerId = 1, playerId = 546
     let gegner = {
         infos: await preparedSQL("select * from Pokemon_Blueprint where id = ?", [gegnerId]),
         imageURL: await imageURL(gegnerId)
@@ -86,6 +86,7 @@ app.get("/fight", async function(req, res){
         infos: await preparedSQL("select * from Pokemon_Blueprint where id = ?", [playerId]),
         imageURL: await imageURL(playerId)
     }
+    console.log("Image IDs");
     res.render("fight", {gegner: gegner, player: player})
 })
 
