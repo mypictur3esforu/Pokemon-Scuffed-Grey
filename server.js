@@ -94,13 +94,23 @@ app.get("/pokedex", (req, res) =>{
     res.sendFile(path.join(__dirname, "/views/pokedex.html"))
 })
 
-app.get("/api/imageURL/:pokemonID", async function(req, res) {
+app.get("/api/imageURL/:pokemonID/:highResolution", async function(req, res) {
     try{
         const pokemonID = parseInt(req.params.pokemonID)
-        res.send({imageURL: await imageURL(pokemonID)})
+        const highRes = req.params.highResolution
+        // console.log("Res:", highRes);
+        res.send({imageURL: await imageURL(pokemonID, highRes == "true")})
     }catch{
+        console.log(req.params,pokemonID);
         res.send("This ID is not parsable!")
     }
+})
+
+app.get("/city/:destination", async function(req, res){
+    const destination = req.params.destination
+    res.render("city", {destination: (await preparedSQL("select * from destination where name = ?", [destination]))[0],
+        locations: await preparedSQL("select name from location where destination = ?", [destination])
+    })
 })
 
 app.listen(8080, () => {

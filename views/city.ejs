@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/city.css">
+  <title>City <%= destination.name %></title>
+</head>
+<body>
+  <header>
+    City <%= destination.name %>
+  </header>
+    <script>
+    console.log(('<%= (destination.name)%>'))
+    </script>
+  <div class="container">
+    <aside class="sidebar">
+      <!-- Orte-Buttons -->
+       <% for (const cityKey in locations) {
+        if (Object.prototype.hasOwnProperty.call(locations, cityKey)) {
+          const element = locations[cityKey]; %>
+         <button onclick="/city/<%=destination.name%>/<%= element.name%>"><%= element.name%></button>   
+       <% }
+       } %>
+    </aside>
+    <main class="action-panel">
+      <!-- Aktionen-Buttons -->
+      <button>Pokemon Fangen</button>
+      <button>Trainer Kampf</button>
+      <button>Karte Öffnen</button>
+      <button>Rucksack Öffnen</button>
+    </main>
+  </div>
+</body>
+</html>

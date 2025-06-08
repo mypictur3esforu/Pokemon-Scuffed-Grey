@@ -132,11 +132,17 @@ async function destinationPokemonGenerator(destination) {
  * @param {ID des Pokemon wessen Bild gesucht wird} id 
  * @returns Die URL die Bilds
  */
-async function getImageURL(id) {
+async function getImageURL(id, highResolution) {
   id = await getImageNumber(id)
-  const baseURL = "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/imagesHQ/"
+  const highResolutionURL = "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/imagesHQ/"
+  const lowResolutionURL = "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/"
+  let baseURL
+  // console.log("Resolution:", highResolution);
+  if(highResolution == true) baseURL = highResolutionURL
+  else baseURL = lowResolutionURL
   const format = ".png"
   const url = baseURL + id + format
+  // console.log("URL", url);
   return url
 }
 
@@ -158,11 +164,11 @@ async function getImageNumber(id) {
 
 /**
  * Entfernt alle Pokemon, die normalerweise keine eigenen Pokemon sind, um so die ID des Bildes zu ermitteln 
- * @param {ID des Pokemon, dessen Bild geuscht wird} id 
+ * @param {ID des Pokemon, dessen Bild gesucht wird} id 
  * @returns Die ID des Bilds, dass zu dem Pokemon gehört
  */
 async function removeNonBasePokemon(id) {
-  const res = await preparedSQL("select count(*) as count from (select * from (select * from Pokemon_Blueprint where id not in (428, 476, 520, 522, 506, 508, 518, 519, 593, 595, 599) limit ?) y where name like '%\(%\)%') x", [id])
+  const res = await preparedSQL("select count(*) as count from (select * from (select * from Pokemon_Blueprint where id not in (40, 43, 428, 476, 520, 522, 506, 508, 518, 519, 593, 595, 599) limit ?) y where name like '%\(%\)%') x", [id])
   // console.log(res[0].count);
   id -= res[0].count
   return id
