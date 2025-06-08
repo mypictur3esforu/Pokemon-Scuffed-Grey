@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Pokémon Kampf</title>
+    <!-- <link rel="stylesheet" href="/css/Poke.css"> -->
+    <link rel="stylesheet" href="/css/fight.css">
+    <script type="module" src="/fight.js"></script>
+</head>
+<body onload="">
+    <div class="battlefield">
+        <!-- Gegnerisches Pokémon -->
+        <div class="enemy" onmouseover="showInfo()">
+            <img src="<%= gegner.imageURL %>"  alt="Gegnerisches Pokemon" id="img">
+            <div class="hp-bar"><div class="hp-fill"></div></div>
+            <div class="info" id="1">
+                <% for(let info in gegner.infos[0]){ %>
+                    <p><%= info +": "+ gegner.infos[0][info] %></p>                    
+                <%  };%>
+            </div>
+        </div>
+
+        <!-- Eigenes Pokémon -->
+        <div class="player">
+            <img src=" <%= player.imageURL %>" alt="Glumanda">
+            <div class="hp-bar"><div class="hp-fill"></div></div>
+            <div class="info">
+                <div class="info">
+                <% for(let info in player.infos[0]){ %>
+                    <p><%= info +": "+ player.infos[0][info] %></p>                    
+                <%  };%>
+            </div>
+        </div>
+
+        <!-- Aktionsmenü -->
+        <div class="menu">
+            <div class="menu">
+            <button class="btn attack">Attacke</button>
+            <button class="btn item">Backpack</button>
+            <button class="btn pokemon" onclick="updateImage('001')">Pokemon</button>
+            <button class="btn flee">Flucht</button>
+</div>
+
+        </div>
+    </div>
+</body>
+<script>
+    function showInfo(){
+        document.getElementsByClassName('info')[1].classList.toggle('hide')
+        // alert(document.getElementById('1').classList)
+        document.getElementById('1').classList.toggle('hide')
+    }
+</script>
+</html>

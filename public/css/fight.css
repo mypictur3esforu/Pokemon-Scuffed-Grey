@@ -1,3 +1,135 @@
-h1{
-    color: blue;
+/* Allgemeine Seiteinstellungen */
+body {
+    background: url('battle_background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    color: #e0d5c5; /* Warme, gedämpfte Beige-Töne für den Text */
 }
+
+.hide{
+    /* display: none; */
+    visibility: hidden;
+}
+
+/* Kampfbereich */
+.battlefield {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100vh;
+    background-color: #8bbeb6;
+}
+
+/* Gegnerisches & eigenes Pokémon */
+.enemy, .player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.enemy img, .player img{
+    width: 10em;
+    height: 10em;
+}
+
+/* Pokémon Statusanzeige */
+.info {
+    margin-left: auto;
+    margin-right: auto;
+    background: #008f88; /* Dunkler, warmbrauner Farbton */
+    /* padding: 12px; */
+    border-radius: 8px;
+    text-align: center;
+    font-size: medium;
+    color: #f8e4c1; /* Weiches Goldbeige für Kontrast */
+    /* display: inline; */
+    visibility: hidden;
+}
+
+.player:hover .info, .enemy:hover .info{
+    /* display: none; */
+    visibility: initial;
+}
+
+/* HP-Balken */
+.hp-bar {
+    width: 220px;
+    height: 22px;
+    background: #6b1a1a; /* Dunkelrot statt grellem Rot */
+    position: relative;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+.hp-fill {
+    width: 70%;
+    height: 100%;
+    background: #15803d; /* Sattes Dunkelgrün für HP */
+    position: absolute;
+}
+
+/* Menü für Aktionen als Seitenleiste */
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+    width: 20vw; /* Breite der Seitenleiste */
+    height: 100vh; /* Die ganze Höhe ausfüllen */
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #055c52; /* Dunkles Türkis als angenehme Farbwahl */
+    padding: 30px;
+    border-radius: 0 15px 15px 0; /* Abgerundete Ecken rechts */
+}
+
+/* Buttons in der Seitenleiste */
+.btn {
+    width: 100%;
+    height: inherit;
+    font-size: 2em;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.btn:hover{
+    font-size: 6em;
+}
+
+.btn img {
+    opacity: 0;
+    transform: scale(0.6); /* Startet verkleinert im Button */
+    visibility: hidden; /* Unsichtbar, nimmt aber weiterhin Platz ein (falls positioniert) */
+    transition: 
+    opacity 0.6s ease-in-out, 
+    transform 0.6s ease-in-out, 
+    visibility 0s ease 0.6s;  /* visibility wechselt erst nach 0,6 s */
+    width: 1em;
+    height: 1em;
+}
+
+.btn:hover img {
+    width: 1em;
+    height: 1em;
+    opacity: 1;
+    transform: scale(1); /* Wird langsam größer */
+    visibility: visible;
+    transition-delay: 0s;  /* Sofort sichtbar, dann Animation */
+}
+
+
+/* Button-Farben & Formen */
+.attack { background: #fd2f2f } /* Dunkelrot-orange */
+.item { background: #e8fc36 } /* Dunkelblau */
+.flee { background: #1c9fb1 } /* Goldbraun */
+.pokemon { background: #65da1c } /* Dunkelgrün */
+
+/* Hover-Effekte für Buttons */
+.btn:hover { opacity: 0.85; }

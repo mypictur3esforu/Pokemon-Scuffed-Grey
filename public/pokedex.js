@@ -25,8 +25,8 @@ async function getData() {
    //    with recursive entwicklung as (
    //    select *, 0 as evolution level )
    //    select * from pokemon_blueprint`)
-   const res = await sql(`select * from pokemon_blueprint    `)
-   // console.log("get",res);
+   const res = await sql(`select * from pokemon_blueprint`)
+   console.log("get",res);
    return res
 }
 

@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const sql = database.sql
 const preparedSQL = database.preparedSQL
+const imageURL = database.getImageURL
 
 const app = express()
 
@@ -75,8 +76,17 @@ app.post('/sql/prepared', async function(req, res) {
     if(!parcel) res.status(400).send({status: 'Not received'})
 })
 
-app.get("/fight", (req, res) =>{
-    res.sendFile(path.join(__dirname, "/views/fight.html"))
+app.get("/fight", async function(req, res){
+    const gegnerId = 1, playerId = 10
+    let gegner = {
+        infos: await preparedSQL("select * from Pokemon_Blueprint where id = ?", [gegnerId]),
+        imageURL: await imageURL(gegnerId)
+    }
+    let player = {
+        infos: await preparedSQL("select * from Pokemon_Blueprint where id = ?", [playerId]),
+        imageURL: await imageURL(playerId)
+    }
+    res.render("fight", {gegner: gegner, player: player})
 })
 
 app.get("/pokedex", (req, res) =>{
