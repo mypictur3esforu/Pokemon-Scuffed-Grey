@@ -46,11 +46,10 @@ async function generateSpawnRules() {
     let min_level = random(1, 90)
     let max_level = min_level + 3
     let inhabits = "insert into inhabits values( " + bp_id + ", '" + destination + "', '" + location + "', " + probability + ", " + min_level + ", " + max_level + ");"
-    console.log(inhabits)
+    console.log("Pokemon Inhabits (Spawn Rules)", inhabits)
     await sql(inhabits)
   }
 }
-//generateSpawnRules()
 
 function random(min, max) {
   let result = Math.round(Math.random() * max + min)
@@ -81,22 +80,22 @@ async function generatePokemon(destination, location, amount) {
     console.log(await oneLinerSQL("Select name from pokemon_blueprint where id = " + bp + ";"));
     const level = await oneLinerSQL("Select min_level, max_level from inhabits where blueprint = " + bp + " and destination = '" + destination + "' and location = '" + location + "';")
     let insert = "insert into Pokemon values (null, " + bp + ", " + (level[0] + random(0, level[1] - level[0])) + ", 'NPC 0', null);"
-    // console.log(insert);
+    // console.log("Pokemon inserted", insert);
     await sql(insert)
   }
 }
 
 async function sql(sqlOrder) {
-  // console.log(sqlOrder);
+  console.log("SQL Order:", sqlOrder);
   const result = await pool.query(sqlOrder)
-  // console.log(result)
+  // console.log("SQL Result:", result)
   return Object.values(result)[0]
 }
 
 async function preparedSQL(sqlOrder, userInput) {
   // console.log("Prepared SQL:", sqlOrder, userInput);
   const result = await pool.query(sqlOrder, userInput)
-  // console.log(result)
+  // console.log("Prepared SQL Result:", result)
   return Object.values(result)[0]
 }
 
@@ -153,7 +152,7 @@ async function getImageNumber(id) {
     id = "0" + id
     // console.log("getImageNumber", id);
   }
-  console.log(id);
+  // console.log(id);
   return id
 }
 

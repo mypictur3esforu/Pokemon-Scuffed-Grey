@@ -60,7 +60,7 @@ app.post('/sql', async function(req, res){
     const {parcel} = req.body
     // console.log(parcel);
     const ans = await sql(parcel)
-    console.log(ans)
+    // console.log(ans)
     // res.status(200).send(ans)
     res.send(ans)
     if(!parcel) res.status(400).send({status: 'Not received'})
@@ -92,6 +92,15 @@ app.get("/fight", async function(req, res){
 
 app.get("/pokedex", (req, res) =>{
     res.sendFile(path.join(__dirname, "/views/pokedex.html"))
+})
+
+app.get("/api/imageURL/:pokemonID", async function(req, res) {
+    try{
+        const pokemonID = parseInt(req.params.pokemonID)
+        res.send({imageURL: await imageURL(pokemonID)})
+    }catch{
+        res.send("This ID is not parsable!")
+    }
 })
 
 app.listen(8080, () => {

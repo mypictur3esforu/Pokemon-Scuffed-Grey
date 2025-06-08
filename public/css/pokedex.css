@@ -32,3 +32,8 @@ input {
   font-size: .8rem;
   color: #777;
 }
+
+.card img{
+  width: 3em;
+  height: 3em;
+}
