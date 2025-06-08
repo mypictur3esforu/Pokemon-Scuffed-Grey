@@ -163,7 +163,7 @@ async function getImageNumber(id) {
  * @returns Die ID des Bilds, dass zu dem Pokemon gehört
  */
 async function removeNonBasePokemon(id) {
-  const res = await preparedSQL("select count(*) as count from (select * from (select * from Pokemon_Blueprint where id not in (428, 476, 520, 522, 506, 508, 518, 519) limit ?) y where name like '%\(%\)%') x", [id])
+  const res = await preparedSQL("select count(*) as count from (select * from (select * from Pokemon_Blueprint where id not in (428, 476, 520, 522, 506, 508, 518, 519, 593, 595, 599) limit ?) y where name like '%\(%\)%') x", [id])
   // console.log(res[0].count);
   id -= res[0].count
   return id

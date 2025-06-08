@@ -16,3 +16,48 @@ h2{
 area:hover{
     cursor: pointer;
 }
+
+.hide {
+  display: none;
+}
+
+/* Grundlegendes Styling für das Menü */
+header {
+    background-color: #055c52;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Maximale Verteilung der Elemente */
+    width: 90%; /* Breite erhöhen, um Abstand zu vergrößern */
+    margin: auto; /* Zentriert im Header */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px; /* Abstand zwischen den Links */
+    padding: 0;
+    width: 100%; /* Volle Breite ausnutzen */
+}
+
+.nav-links li {
+    flex-grow: 1; /* Jeder Menüpunkt nimmt maximalen Platz ein */
+    text-align: center; /* Elemente mittig ausrichten */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #f8e4c1;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 20px 100px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: #03b88a;
+}

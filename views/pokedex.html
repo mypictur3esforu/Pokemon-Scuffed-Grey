@@ -8,6 +8,16 @@
    <script type='module' src="/pokedex.js"></script>
 </head>
 <body>
+<header>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="/map">Map</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/pokedex">Pokedex</a></li>
+        </ul>
+    </nav>
+</header>
    <h1>Pokedex</h1>
    <div class="search-wrapper">
     <label for="search">Search Pokemon</label>
@@ -16,6 +26,7 @@
   <div class="entry-cards" pokedex-entry-cards-container>
       <template pokedex-entry-template>
          <div class="card">
+            <div class="icon"><img src="" alt="Pokemon Image"></div>
             <div class="name" entry-name></div>
             <div class="body" entry-body></div>
          </div>
