@@ -24,15 +24,16 @@ async function checkPlayerLogin(username, password) {
 
 async function login(username, password) {
         if(!await checkPlayerLogin(username, password)) return false
-        newToken(username)
+        setToken(username)
         return true
 }
 
-async function newToken(username) {
+async function setToken(username) {
         const token = generateToken();
         const cookie = {username: username, token: token}
-        // createCookie("player", JSON.stringify(cookie))
-        document.cookie = '""=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+        createCookie("player", JSON.stringify(cookie))
+        // console.log("setToken Cookie:", document.cookie);
+        // document.cookie = '""=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
         // console.log(document.cookie = document.cookie.split("{")[0] + "=; expires");
         const updateToken = "update player set token = ? where username = ?"
         const res = await preparedSQL(updateToken, [token, username])
@@ -43,7 +44,7 @@ function deleteCookie(cookieName){
 }
 
 function createCookie(cookieName, value, expiration){
-        if (expiration == "" || expiration == null) document.cookie = cookieName+"= "+ value +"; path=/"
+        if (expiration == undefined || expiration == "" || expiration == null) document.cookie = cookieName+"= "+ value +"; path=/"
         else document.cookie = cookieName+"= "+ value +"; expires="+ expiration +";"
 }
 

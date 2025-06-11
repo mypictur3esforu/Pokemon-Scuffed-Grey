@@ -2,6 +2,7 @@ import express from 'express'
 import path from 'path'
 import database from  "./database.js"
 import { fileURLToPath } from "url";
+import cookieParser from 'cookie-parser';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,6 +15,7 @@ const generatePokemon = database.generatePokemon
 const app = express()
 
 app.use(express.static('public'));
+app.use(cookieParser())
 
 app.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, "views/Poke.html"))
@@ -109,6 +111,22 @@ app.get("/api/imageURL/:pokemonID/:highResolution", async function(req, res) {
         res.send("This ID is not parsable!")
     }
 })
+/**
+ * Middleware, um User Login zu verifizieren
+ */
+app.use(async function(req, res, next) {
+    const playerCookie = JSON.parse(req.cookies.player)
+    // console.log("middleware login", playerCookie);
+    if (! await checkLogin(playerCookie)){
+        // res.redirect("/login")
+        res.status(401).send('<h1>You need to Login</h1>').end()
+    }else next()
+})
+
+async function checkLogin(playerCookie) {
+    // const res = 
+    return (await preparedSQL("select * from player where username = ? and token = ?", [playerCookie.username, playerCookie.token])).length == 1
+}
 
 app.get("/city/:destination", async function(req, res){
     const destination = req.params.destination
@@ -141,8 +159,8 @@ app.get("/encounter/:destination/:location", async function(req, res) {
                 "Content-Type": 'application/json'
             },
             body: JSON.stringify({
-                player: generatePokemon((await preparedSQL("select * from inhabits limit 1"))[0]),
-                gegner: generatePokemon((await preparedSQL("select * from inhabits order by 1 desc limit 1"))[0])
+                player: generatePokemon((await preparedSQL("select * from inhabits limit 57, 58"))[0]),
+                gegner: generatePokemon((await preparedSQL("select * from inhabits order by 1 desc limit 387, 388"))[0])
             })
         })
         const html = await fightRes.text()
