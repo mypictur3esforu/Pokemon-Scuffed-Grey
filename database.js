@@ -63,7 +63,7 @@ function random(min, max) {
  * 3. Random Zahl wird generiert und es wird geschaut in welcher Probability Range die random Zahl liegt. Das ist die Blaupause des neuen Pokemon!
  * 4. insert Statement wird generiert. 
  */
-async function generatePokemon(destination, location, amount) {
+async function generatePokemons(destination, location, amount) {
   // let playerLoq = (await oneLinerSQL("Select destination, location from trainer where id = 1;"))
   // let destination = playerLoq[0]
   // let location = playerLoq[1]
@@ -75,14 +75,48 @@ async function generatePokemon(destination, location, amount) {
   }
   for (let i = 0; i < amount; i++) {
     let bpProb = random(0, addedProbs[addedProbs.length - 1])
-    let z; for (z = 0; parseInt(bpProb) > parseInt(addedProbs[z]); z++) { }
     const bp = Object.values(bpsInLocation[z])[0]
-    console.log(await oneLinerSQL("Select name from pokemon_blueprint where id = " + bp + ";"));
+    console.log("Create Pokemon:", await oneLinerSQL("Select name from pokemon_blueprint where id = " + bp + ";"));
     const level = await oneLinerSQL("Select min_level, max_level from inhabits where blueprint = " + bp + " and destination = '" + destination + "' and location = '" + location + "';")
     let insert = "insert into Pokemon values (null, " + bp + ", " + (level[0] + random(0, level[1] - level[0])) + ", 'NPC 0', null);"
     // console.log("Pokemon inserted", insert);
-    await sql(insert)
+    // await sql(insert)
   }
+}
+
+/**
+ * Erstellt ein Pokemon Objekt, mit den inhabits Regeln, die gegeben werden
+ * @param {Inhabits Object} inhabits
+ * @returns Pokemon Objekt
+*/
+function generatePokemon(inhabits) {
+  // console.log("Generate Pokemon: ", inhabits);
+  const pokemon = {
+    id: null,
+    blueprint: inhabits.blueprint,
+    level: random(inhabits.min_level, inhabits.max_level),
+    trainer: null,
+    item: null
+  }
+  // console.log("Pokemon: ", pokemon);
+  return pokemon
+}
+
+/**
+ * Generiert ein zufälliges Pokemon in einer Location.
+ * @param {Location Object (destination, name)} location 
+ * @returns Ein Pokemon Object
+ */
+async function generateRandomPokemon(location){
+  const pokemon = generatePokemon(await preparedSQL(`
+     with loq as (select *, row_number() over(order by blueprint) as rownum from inhabits
+    where destination = ?
+    and location = ?
+    order by rownum desc)
+select * from loq cross join (select FLOOR(RAND()*((select max(rownum) from loq group by location))+1) as random) x
+where rownum in(random);
+    `, [location.destination, location.name]))
+  return pokemon
 }
 
 async function sql(sqlOrder) {
@@ -123,7 +157,7 @@ async function trainerSpawner(destination) {
 async function destinationPokemonGenerator(destination) {
   let loqs = Object.values(await preparedSQL('select * from location where destination = ? and name in(select location from inhabits where destination = ?)', [destination, destination]))
   for (let i = 0; i < loqs.length; i++) {
-    await generatePokemon(destination, loqs[i].name, 5)
+    await generatePokemons(destination, loqs[i].name, 5)
   }
 }
 
@@ -174,4 +208,4 @@ async function removeNonBasePokemon(id) {
   return id
 }
 
-export default { sql, preparedSQL, getImageURL }
+export default { sql, preparedSQL, getImageURL, generatePokemon }

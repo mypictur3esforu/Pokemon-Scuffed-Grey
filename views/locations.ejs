@@ -3,41 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/css/city.css">
+  <link rel="stylesheet" href="/css/Poke.css">
+  <link rel="stylesheet" href="/css/encounter.css">
   <title>City <%= destination.name %></title>
 </head>
 <body>
   <header>
-    City <%= destination.name %>
+   <h1>Choose a location from <%= destination %></h1>
   </header>
-    <script>
-    console.log(('<%= (destination.name)%>'))
-    </script>
   <div class="container">
     <aside class="sidebar">
       <!-- Orte-Buttons -->
        <% for (const cityKey in locations) {
         if (Object.prototype.hasOwnProperty.call(locations, cityKey)) {
           const element = locations[cityKey]; %>
-         <button onclick="location.href='/city/<%= destination.name %>/<%= element.name%>'"><%= element.name%></button>   
+         <button onclick="location.href='/encounter/<%= destination %>/<%= element.name%>'"><%= element.name%></button>   
        <% }
        } %>
     </aside>
-    <main class="action-panel">
-      <!-- Aktionen-Buttons -->
-      <button onclick="encounterPokemon()">Pokemon Fangen</button>
-      <button>Trainer Kampf</button>
-      <button>Karte Öffnen</button>
-      <button>Rucksack Öffnen</button>
-    </main>
-  </div>
 </body>
 
 <script>
   function encounterPokemon(){
     const destination = <%- JSON.stringify(destination) %>;
     const loq = <%- JSON.stringify(locations) %>;
-    location = "/encounter/"+destination.name+"/"
+    console.log(loq[0].name);
+    location = "/encounter/"+destination.name+"/"+loq[0].name
   }
 </script>
 </html>

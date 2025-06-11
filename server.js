@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 const sql = database.sql
 const preparedSQL = database.preparedSQL
 const imageURL = database.getImageURL
+const generatePokemon = database.generatePokemon
 
 const app = express()
 
@@ -52,7 +53,7 @@ app.get('/preview/:destination', async function(req, res) {
         group by username
         having anzahlPokemon > 0`, [destination])
     // console.log(pokemonSpawns);
-    res.render("city_preview", {pokemonSpawns: Object.values(pokemonSpawns), trainers: Object.values(trainers)});
+    res.render("city_preview", {pokemonSpawns: Object.values(pokemonSpawns), trainers: Object.values(trainers), destination: destination});
 });
 
 app.use(express.json())
@@ -76,18 +77,21 @@ app.post('/sql/prepared', async function(req, res) {
     if(!parcel) res.status(400).send({status: 'Not received'})
 })
 
-app.get("/fight", async function(req, res){
-    const gegnerId = 1, playerId = 600
-    let gegner = {
+app.post("/fight", async function(req, res){
+    const {player, gegner} = req.body
+    // const gegPokemon = req.body.gegner
+    // console.log("Player: ", playPokemon, "Gegner: ". gegPokemon);
+    console.log("/fight Player: ", player)
+    const gegnerId = gegner.blueprint, playerId = player.blueprint
+    let gegneri = {
         infos: await preparedSQL("select * from Pokemon_Blueprint where id = ?", [gegnerId]),
         imageURL: await imageURL(gegnerId)
     }
-    let player = {
+    let playeri = {
         infos: await preparedSQL("select * from Pokemon_Blueprint where id = ?", [playerId]),
         imageURL: await imageURL(playerId)
     }
-    console.log("Image IDs");
-    res.render("fight", {gegner: gegner, player: player})
+    res.render("fight", {gegner: gegneri, player: playeri})
 })
 
 app.get("/pokedex", (req, res) =>{
@@ -112,6 +116,40 @@ app.get("/city/:destination", async function(req, res){
         locations: await preparedSQL("select name from location where destination = ?", [destination])
     })
 })
+
+app.get("/encounter/:destination/all/locations", async function(req, res) {
+    const destination = req.params.destination
+    res.render("locations", {destination: destination,
+        locations: await preparedSQL(`select * from location natural join inhabits
+                                        where destination = ?
+                                        and name = location
+                                        group by location
+                                        having count(*) > 0`, [destination])})
+})
+
+
+app.get("/encounter/:destination/:location", async function(req, res) {
+    const destination = req.params.destination
+    const location = req.params.location
+    const loqTest = (await preparedSQL("select * from location where destination = ? and name = ?", [destination, location])).length == 1
+    // console.log("LOQ:", location, "loq Test:", loqTest);
+    if (!loqTest) res.redirect("/encounter/"+destination+"/all/locations")
+
+    const fightRes = await fetch('http://localhost:8080/fight', {
+            method: 'POST',
+            headers:{
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                player: generatePokemon((await preparedSQL("select * from inhabits limit 1"))[0]),
+                gegner: generatePokemon((await preparedSQL("select * from inhabits order by 1 desc limit 1"))[0])
+            })
+        })
+        const html = await fightRes.text()
+        // console.log("Encounter Res", html);
+    res.send(html)
+})
+
 
 app.listen(8080, () => {
     console.log("Server running on 8080!");

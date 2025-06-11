@@ -1,0 +1,37 @@
+
+body {
+   align-items: center;
+}
+
+h1{
+   font-size: 3em;
+}
+
+.sidebar {
+  width: 90%;
+  height: auto;
+  background-color: #2a2a2a;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sidebar button {
+  padding: 10px 15px;
+  font-size: xx-large;
+  background-color: #3a3a3a;
+  color: #e0e0e0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background-color: #055c52;
+}

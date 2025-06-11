@@ -28,6 +28,8 @@ description varchar(200)
 
 create table if not exists Type (name varchar(50) primary key);
 
+create table if not exists category (name varchar(50) primary key);
+
 create table if not exists Destination (
 name varchar(50) primary key,
 type varchar(50)
@@ -118,6 +120,12 @@ position varchar(50),
 target varchar(50),
 primary key (position, target)
 );
+
+create table if not exists categorizes (
+blueprint integer,
+category varchar(50),
+primary key (blueprint, category)
+)
 
 #alter table Pokemon_Blueprint 
 	#add foreign key (evolution) references Pokemon_Blueprint(ID);
