@@ -21,10 +21,6 @@ app.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, "views/Poke.html"))
 });
 
-app.get('/destination/:destination', (req, res) =>{
-    res.sendFile(path.join(__dirname, "views/destination.html"))
-});
-
 app.get("/register", (req, res) =>{
     res.sendFile(path.join(__dirname, "/views/register.html"))
 })

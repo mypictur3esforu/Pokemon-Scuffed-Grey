@@ -19,7 +19,7 @@
        <% for (const cityKey in locations) {
         if (Object.prototype.hasOwnProperty.call(locations, cityKey)) {
           const element = locations[cityKey]; %>
-         <button onclick="location.href='/city/<%= destination.name %>/<%= element.name%>'"><%= element.name%></button>   
+         <button onclick="pickLocation('<%= element.name.replace(/\s+/g, '') %>')" <%= element.name.replace(/\s+/g, '')%>><%= element.name%></button>   
        <% }
        } %>
     </aside>
@@ -38,6 +38,14 @@
     const destination = <%- JSON.stringify(destination) %>;
     const loq = <%- JSON.stringify(locations) %>;
     location = "/encounter/"+destination.name+"/"
+  }
+
+  function pickLocation(location){
+    // console.log(`[${CSS.escape(location)}]`);
+    const button = document.querySelector(`[${CSS.escape(location)}]`);
+    // console.log("Button", button)
+    // console.log(button.classList);
+    
   }
 </script>
 </html>

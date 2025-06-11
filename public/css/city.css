@@ -91,3 +91,8 @@ header {
     flex-wrap: wrap;
   }
 }
+
+.sidebar button.marked{
+  background-color: #06e2c8;
+  color: black;
+}
